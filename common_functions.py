@@ -3,6 +3,7 @@ import time
 import random
 import threading
 import pyautogui as gui
+import tkinter as tk
 
 import coordinates as coords
 
@@ -22,6 +23,29 @@ def print_mouse():
         time.sleep(1)
         print(gui.position())
 
+def print_mouse_tk():
+    root = tk.Tk()
+    root.overrideredirect(True)  # Removes title bar/borders
+    root.attributes('-topmost', True)  # Stays on top
+    root.attributes('-alpha', 0.7)  # Semi-transparent
+    root.wm_attributes('-transparentcolor', 'black')  # Make background transparent
+    root.geometry('200x30+100+100')
+    label = tk.Label(root, text="Mouse: (0, 0)", fg='white', bg='black', font=('Arial', 12))
+    label.pack()
+
+    def update_mouse_position():
+        # Get mouse position using pyautogui
+        x, y = gui.position()
+        # Update label text
+        label.config(text=f"Mouse: ({x}, {y})")
+        # Schedule next update (every 1000ms = 1 second to match your original timing)
+        root.after(1000, update_mouse_position)
+
+    # Start updating mouse position
+    update_mouse_position()
+
+    root.mainloop()
+        
 
 def scroll_out():
     click_compass()
