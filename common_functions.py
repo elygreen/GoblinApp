@@ -29,6 +29,7 @@ def scroll_out():
     scrollTime = time.monotonic() + 5
     while time.monotonic() < scrollTime:
         gui.scroll(-100)
+    time.sleep(1)
 
 
 def scroll_in():
