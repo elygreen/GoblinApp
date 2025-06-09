@@ -109,7 +109,8 @@ def Inside_NMZ():
     ### START OF NMZ INSIDE CYCLE ###
     # DRINK 6 absorptions right off the bat
     for initial_absorptions in range(NUM_INITIAL_ABSORPTIONS):
-        gui.moveTo(absorbtion_slots.pop(0), 1)
+        coord = absorbtion_slots.pop(0)
+        gui.moveTo(coord[0], coord[1], 1)
         wait_time = time.monotonic() + 5
         while time.monotonic() < wait_time:
             gui.click()
