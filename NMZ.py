@@ -23,7 +23,7 @@ NMZ_start_to_NMZ_1 = (429, 305)
 NUM_OVERLOADS = 6
 POTION_DOSES = 4
 NUM_ABSORBTIONS_PER_OVERLOAD = math.ceil((27 - 1 - NUM_OVERLOADS) / NUM_OVERLOADS)
-NUM_INITIAL_ABSORPTIONS = 3
+NUM_INITIAL_ABSORPTIONS = 1
 
 def Dom():
     time.sleep(2)
@@ -104,16 +104,19 @@ def Inside_NMZ():
             time.sleep(random.uniform(.15, .25))
             gui.click()
             time.sleep(random.uniform(19, 47))
+    
+    def spam_absorption():
+        wait_time = time.monotonic() + 3.5
+        while time.monotonic() < wait_time:
+            gui.click()
+            time.sleep(random.randrange(17, 43) / 100)
 
     ### START OF NMZ INSIDE CYCLE ###
     # DRINK 6 absorptions right off the bat
     for initial_absorptions in range(NUM_INITIAL_ABSORPTIONS):
         coord = absorption_slots.pop(0)
         gui.moveTo(coord[0], coord[1], 1)
-        wait_time = time.monotonic() + 5
-        while time.monotonic() < wait_time:
-            gui.click()
-            time.sleep(random.randrange(17, 43) / 100)
+        spam_absorption()
 
     # Repeat for as many overloads as we have
     for overloads in range(NUM_OVERLOADS):
@@ -123,16 +126,13 @@ def Inside_NMZ():
                 break
             current_absorption_coord = absorption_slots.pop(0)
             gui.moveTo(current_absorption_coord[0], current_absorption_coord[1], 1)
-            wait_time = time.monotonic() + 5
-            while time.monotonic() < wait_time:
-                gui.click()
-                time.sleep(random.randrange(17, 43) / 100)
+            spam_absorption()
         # Get current overload position
         current_overload_coord = overload_slots.pop(0)
         # Repeat for 4 doses of overload potion
         for i in range(POTION_DOSES):
             # Sip current overload
-            cf.move_and_click_variable_coord(current_overload_coord, -1, .3)
+            cf.move_and_click_variable_coord(current_overload_coord, -1, 3)
             current_overload_cycle_end_time = time.monotonic() + (60 * 5)
             # Spam rockcake
             spam_rockcake()

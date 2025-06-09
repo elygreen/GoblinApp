@@ -10,7 +10,7 @@ import coordinates as coords
 def angle_up():
     gui.moveTo(coords.middle_screen[0], coords.middle_screen[1], 1)
     gui.keyDown('up')
-    time.sleep(5)
+    time.sleep(3)
     gui.keyUp('up')
 
 def click_compass():
