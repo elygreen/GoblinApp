@@ -48,7 +48,7 @@ def deposit_potions():
     cf.move_and_click((727, 312), -1, 2)
     gui.write("1")
     # Go back to NMZ 1
-    cf.move_and_click_variable_coord(800, 386, -1, cf.wait_rng(2.1, 3.1))
+    cf.move_and_click_variable_coord((800, 386), -1, cf.wait_rng(2.1, 3.1))
 
 
 def take_potions():
@@ -140,6 +140,7 @@ def Inside_NMZ():
 
 
 def run():
+    time.sleep(3)
     cf.login()
     cf.scroll_medium()
     cf.compass_scroll_out()
@@ -149,5 +150,6 @@ def run():
     deposit_potions()
     take_potions()
     enter_nmz()
+    Inside_NMZ()
 
 
