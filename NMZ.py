@@ -18,7 +18,7 @@ import time
 #   - First slot: Rock Cake
 # LOTS OF MONEY IN COFFER
 
-coord_Dom = (569, 236)
+coord_Dom = (751, 236)
 NMZ_start_to_NMZ_1 = (429, 305)
 NUM_OVERLOADS = 6
 POTION_DOSES = 4
