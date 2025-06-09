@@ -87,9 +87,8 @@ def Inside_NMZ():
     OVERLOAD_DURATION = 60 * 5
     inv_slots = coords.inventory_slot.copy()
     overload_slots = inv_slots[1:(1 + NUM_OVERLOADS)]
-    absorbtion_slots = inv_slots[(1+NUM_OVERLOADS) : (1+NUM_OVERLOADS + NUM_INITIAL_ABSORPTIONS)]
+    absorption_slots = inv_slots[(1+NUM_OVERLOADS) : (1+NUM_OVERLOADS + (28 - 1 - NUM_OVERLOADS))]
     first_slot = inv_slots[0]
-    current_slot = (0, 0)
 
     ### HELPER FUNCTIONS ###
     def spam_rockcake():
@@ -109,7 +108,7 @@ def Inside_NMZ():
     ### START OF NMZ INSIDE CYCLE ###
     # DRINK 6 absorptions right off the bat
     for initial_absorptions in range(NUM_INITIAL_ABSORPTIONS):
-        coord = absorbtion_slots.pop(0)
+        coord = absorption_slots.pop(0)
         gui.moveTo(coord[0], coord[1], 1)
         wait_time = time.monotonic() + 5
         while time.monotonic() < wait_time:
@@ -120,7 +119,10 @@ def Inside_NMZ():
     for overloads in range(NUM_OVERLOADS):
         # Drink absorptions
         for absorptions in range(NUM_ABSORBTIONS_PER_OVERLOAD):
-            gui.moveTo(absorbtion_slots.pop(0), 1)
+            if not absorption_slots:
+                break
+            current_absorption_coord = absorption_slots.pop(0)
+            gui.moveTo(current_absorption_coord, 1)
             wait_time = time.monotonic() + 5
             while time.monotonic() < wait_time:
                 gui.click()
