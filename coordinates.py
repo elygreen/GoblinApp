@@ -7,5 +7,15 @@ inventory_slot = [(1232, 377), (1294, 377), (1357, 377), (1419, 377),
              (1232, 646), (1294, 646), (1357, 646), (1419, 646),
              (1232, 700), (1294, 700), (1357, 700), (1419, 700)]
 
+click_here_to_play = (768, 540)
 compass = (1206, 62)
 middle_screen = (772, 284)
+minimap_middle = (1149, 156)
+play_now = (773, 424)
+quick_prayer = (1196, 174)
+
+tab_inventory = (1145, 315)
+tab_settings = (1198, 758)
+tab_settings_zoom = (1414, 361)
+
+zoom_bar_middle = (1165, 511)
