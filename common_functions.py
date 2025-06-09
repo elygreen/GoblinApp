@@ -18,7 +18,7 @@ def click_compass():
 
 
 def login():
-    move_and_click(coords.play_now, 1, 7)
+    move_and_click(coords.play_now, 1, 10)
     move_and_click(coords.click_here_to_play, 1, 4)
 
 def move_and_click(coordinate, sec=1, wait=0):
@@ -36,7 +36,7 @@ def move_and_rightclick(coordinate, sec=1, wait=0):
     if wait == -1:
         wait = round(random.uniform(0.9, 1.3), 2)
     gui.moveTo(coordinate[0], coordinate[1], sec)
-    gui.click()
+    gui.rightClick()
     time.sleep(wait)
 
 def move_and_click_variable_coord(coordinate, sec=1, wait=0):
@@ -59,7 +59,7 @@ def move_and_rightclick_variable_coord(coordinate, sec=1, wait=0):
     varied_coordinate_x = coordinate[0] + random.randint(-7, 7)
     varied_coordinate_y = coordinate[1] + random.randint(-7, 7)
     gui.moveTo(varied_coordinate_x, varied_coordinate_y, sec)
-    gui.click()
+    gui.rightClick()
     time.sleep(wait)
 
 def second_rng(lower=0.7, upper=1.1):
@@ -99,7 +99,7 @@ def print_mouse_tk():
 
 def scroll_in():
     click_compass()
-    gui.moveTo(coords.middle_screen[0], coords.middle_screen[1], 1, 1)
+    gui.moveTo((coords.middle_screen[0], coords.middle_screen[1]), 1, 1)
     scrollTime = time.monotonic() + 5
     while time.monotonic() < scrollTime:
         gui.scroll(100)
@@ -107,7 +107,7 @@ def scroll_in():
 
 def scroll_out():
     click_compass()
-    gui.moveTo(coords.middle_screen[0], coords.middle_screen[1], 1, 1)
+    gui.moveTo((coords.middle_screen[0], coords.middle_screen[1]), 1, 1)
     scrollTime = time.monotonic() + 5
     while time.monotonic() < scrollTime:
         gui.scroll(-100)
@@ -116,8 +116,8 @@ def scroll_out():
 
 def scroll_medium():
     move_and_click(coords.tab_settings, 1, 1)
-    move_and_click(coords.zoom_bar_middle, 1, 1)
     move_and_click(coords.tab_settings_zoom, 1, 1)
+    move_and_click(coords.zoom_bar_middle, 1, 1)
     move_and_click(coords.tab_inventory, 1, 1)
 
 
