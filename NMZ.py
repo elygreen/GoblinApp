@@ -99,7 +99,7 @@ def Inside_NMZ():
             gui.click()
 
     def rapid_heal_for_duration(duration):
-        gui.moveTo(coords.quick_prayer)
+        gui.moveTo(coords.quick_prayer, 1)
         while time.monotonic() < duration:
             gui.click()
             time.sleep(random.uniform(.15, .25))
@@ -109,7 +109,7 @@ def Inside_NMZ():
     ### START OF NMZ INSIDE CYCLE ###
     # DRINK 6 absorptions right off the bat
     for initial_absorptions in range(NUM_INITIAL_ABSORPTIONS):
-        gui.moveTo(absorbtion_slots.pop(0), 1, 1)
+        gui.moveTo(absorbtion_slots.pop(0), 1)
         wait_time = time.monotonic() + 5
         while time.monotonic() < wait_time:
             gui.click()
@@ -119,7 +119,7 @@ def Inside_NMZ():
     for overloads in range(NUM_OVERLOADS):
         # Drink absorptions
         for absorptions in range(NUM_ABSORBTIONS_PER_OVERLOAD):
-            gui.moveTo(absorbtion_slots.pop(0), 1, 1)
+            gui.moveTo(absorbtion_slots.pop(0), 1)
             wait_time = time.monotonic() + 5
             while time.monotonic() < wait_time:
                 gui.click()
@@ -148,10 +148,11 @@ def run():
     #cf.compass_scroll_out()
     #cf.click_compass()
     #cf.angle_up()
-    Dom()
-    deposit_potions()
-    take_potions()
-    enter_nmz()
+    #Dom()
+    #deposit_potions()
+    #take_potions()
+    #enter_nmz()
+    time.sleep(3)
     Inside_NMZ()
 
 

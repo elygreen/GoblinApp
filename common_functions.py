@@ -122,7 +122,7 @@ def scroll_medium():
 
 
 def compass_scroll_in():
-    gui.moveTo(coords.minimap_middle[0], coords.minimap_middle[1] , 1)
+    gui.moveTo(coords.minimap_middle[0], coords.minimap_middle, 1)
     scrollTime = time.monotonic() + 5
     while time.monotonic() < scrollTime:
         gui.scroll(100)
