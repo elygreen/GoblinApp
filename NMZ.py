@@ -27,14 +27,16 @@ def Dom():
     cf.move_and_click(coord_Dom, 1, 3)
     # Select Previous: Customisable Rumble (hard)
     gui.write("4")
-    time.sleep(1)
+    time.sleep(2)
     gui.press("space")
-    time.sleep(1)
+    time.sleep(2)
     # Agree to pay 26,000 coins? Yes
     gui.write("1")
-    time.sleep(1)
+    time.sleep(2)
     gui.press("space")
-    time.sleep(1)
+    time.sleep(2)
+    # Move from NMZ start to NMZ 1
+    cf.move_and_click((438, 297), -1, 5)
 
 def deposit_potions():
     # Right click Overload barrel
