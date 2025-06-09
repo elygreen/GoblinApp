@@ -26,6 +26,7 @@ NUM_ABSORBTIONS_PER_OVERLOAD = math.ceil((27 - 1 - NUM_OVERLOADS) / NUM_OVERLOAD
 NUM_INITIAL_ABSORPTIONS = 6
 
 def Dom():
+    time.sleep(2)
     cf.move_and_click(coord_Dom, 1, 3)
     # Select Previous: Customisable Rumble (hard)
     gui.write("4")
@@ -144,9 +145,9 @@ def run():
     #time.sleep(3)
     #cf.login()
     #cf.scroll_medium()
-    cf.compass_scroll_out()
-    cf.click_compass()
-    cf.angle_up()
+    #cf.compass_scroll_out()
+    #cf.click_compass()
+    #cf.angle_up()
     Dom()
     deposit_potions()
     take_potions()
