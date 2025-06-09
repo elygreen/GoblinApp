@@ -140,9 +140,9 @@ def Inside_NMZ():
 
 
 def run():
-    time.sleep(3)
-    cf.login()
-    cf.scroll_medium()
+    #time.sleep(3)
+    #cf.login()
+    #cf.scroll_medium()
     cf.compass_scroll_out()
     cf.click_compass()
     cf.angle_up()
