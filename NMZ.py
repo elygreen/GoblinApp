@@ -23,7 +23,7 @@ NMZ_start_to_NMZ_1 = (429, 305)
 NUM_OVERLOADS = 6
 POTION_DOSES = 4
 NUM_ABSORBTIONS_PER_OVERLOAD = math.ceil((27 - 1 - NUM_OVERLOADS) / NUM_OVERLOADS)
-NUM_INITIAL_ABSORPTIONS = 6
+NUM_INITIAL_ABSORPTIONS = 3
 
 def Dom():
     time.sleep(2)
@@ -93,12 +93,12 @@ def Inside_NMZ():
     ### HELPER FUNCTIONS ###
     def spam_rockcake():
         cf.move_and_click(first_slot, -1, -1)
-        for j in range(random.randrange(49, 57)):
+        for j in range(random.randrange(27, 37)):
             time.sleep(random.randrange(17, 43) / 100)
             gui.click()
 
     def rapid_heal_for_duration(duration):
-        gui.moveTo(coords.quick_prayer, 1)
+        gui.moveTo(coords.quick_prayer[0], coords.quick_prayer[1], 1)
         while time.monotonic() < duration:
             gui.click()
             time.sleep(random.uniform(.15, .25))
@@ -122,7 +122,7 @@ def Inside_NMZ():
             if not absorption_slots:
                 break
             current_absorption_coord = absorption_slots.pop(0)
-            gui.moveTo(current_absorption_coord, 1)
+            gui.moveTo(current_absorption_coord[0], current_absorption_coord[1], 1)
             wait_time = time.monotonic() + 5
             while time.monotonic() < wait_time:
                 gui.click()
@@ -145,16 +145,16 @@ def Inside_NMZ():
 
 
 def run():
-    #time.sleep(3)
-    #cf.login()
-    #cf.scroll_medium()
-    #cf.compass_scroll_out()
-    #cf.click_compass()
-    #cf.angle_up()
-    #Dom()
-    #deposit_potions()
-    #take_potions()
-    #enter_nmz()
+    time.sleep(3)
+    cf.login()
+    cf.scroll_medium()
+    cf.compass_scroll_out()
+    cf.click_compass()
+    cf.angle_up()
+    Dom()
+    deposit_potions()
+    take_potions()
+    enter_nmz()
     time.sleep(3)
     Inside_NMZ()
 
