@@ -22,6 +22,8 @@ coord_Dom = (751, 236)
 NMZ_start_to_NMZ_1 = (429, 305)
 NUM_OVERLOADS = 6
 POTION_DOSES = 4
+NUM_ABSORBTIONS_PER_OVERLOAD = math.ceil((27 - 1 - NUM_OVERLOADS) / NUM_OVERLOADS)
+NUM_INITIAL_ABSORPTIONS = 6
 
 def Dom():
     cf.move_and_click(coord_Dom, 1, 3)
@@ -72,7 +74,7 @@ def take_potions():
 def enter_nmz():
     # Character should be standing on NMZ 2
     # click drink potion
-    cf.move_and_click((933, 295), -1, cf.wait_rng(2.3, 2.7))
+    cf.move_and_click((966, 295), -1, cf.wait_rng(2.3, 3.7))
     # click accept
     cf.move_and_click_variable_coord((967, 334), -1, 3)
     # run to right corner
@@ -81,14 +83,11 @@ def enter_nmz():
 
 def Inside_NMZ():
     pot_cycletime = 25 #minutes
-    NUM_OVERLOADS = 6
-    NUM_ABSORBTIONS_PER_OVERLOAD = math.ceil((28 - 1 - NUM_OVERLOADS) / NUM_OVERLOADS)
-    NUM_INITIAL_ABSORPTIONS = 6
     OVERLOAD_DURATION = 60 * 5
     inv_slots = coords.inventory_slot.copy()
     overload_slots = inv_slots[1:(1 + NUM_OVERLOADS)]
     absorbtion_slots = inv_slots[(1+NUM_OVERLOADS) : (1+NUM_OVERLOADS + NUM_INITIAL_ABSORPTIONS)]
-    first_slot = inv_slots.pop(0)
+    first_slot = inv_slots[0]
     current_slot = (0, 0)
 
     ### HELPER FUNCTIONS ###
