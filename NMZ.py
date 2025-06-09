@@ -79,7 +79,7 @@ def enter_nmz():
     # click accept
     cf.move_and_click_variable_coord((967, 334), -1, 3)
     # run to right corner
-    cf.move_and_click_variable_coord((1426, 168), -1, 3)
+    cf.move_and_click_variable_coord((1306, 62), -1, 3)
 
 
 def Inside_NMZ():
@@ -132,7 +132,8 @@ def Inside_NMZ():
         # Repeat for 4 doses of overload potion
         for i in range(POTION_DOSES):
             # Sip current overload
-            cf.move_and_click_variable_coord(current_overload_coord, -1, 3)
+            cf.move_and_click_variable_coord(current_overload_coord, -1, -1)
+            time.sleep(6)
             current_overload_cycle_end_time = time.monotonic() + (60 * 5)
             # Spam rockcake
             spam_rockcake()
