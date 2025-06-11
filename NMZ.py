@@ -133,13 +133,17 @@ def Inside_NMZ():
 
     # Repeat for 6 hours
     while time.monotonic() < six_hour_logout:
-        single_absorption_timer = time.monotonic() + 8.5 * 60
-        # Rapid heal for 7 minutes
+        single_absorption_timer = time.monotonic() + 9 * 60
+        # Rapid heal for 9 minutes
         rapid_heal_for_duration(single_absorption_timer)
         # Drink 1 absorption
-        next_absorption = absorption_slots.pop(0)
-        gui.moveTo(next_absorption[0], next_absorption[1], .37)
-        spam_absorption()
+        if absorption_slots:
+            next_absorption = absorption_slots.pop(0)
+            gui.moveTo(next_absorption[0], next_absorption[1], .37)
+            spam_absorption()
+        else:
+            rapid_heal_for_duration(time.monotonic() + 9 * 60 * 5)
+            break
 
 
     
