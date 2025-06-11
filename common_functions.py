@@ -23,7 +23,7 @@ def login():
 
 def move_and_click(coordinate, sec=1, wait=0):
     if sec == -1:
-        sec = round(random.uniform(0.27, .51), 2)
+        sec = round(random.uniform(0.37, .61), 2)
     if wait == -1:
         wait = round(random.uniform(0.9, 1.3), 2)
     gui.moveTo(coordinate[0], coordinate[1], sec)
