@@ -78,9 +78,9 @@ def enter_nmz():
     # click accept
     cf.move_and_click_variable_coord((967, 334), -1, 3)
     # run to right corner
-    cf.move_and_click_variable_coord((1406, 62), -1, 3)
-    time.sleep(3)
-    gui.click()
+    #cf.move_and_click_variable_coord((1406, 62), -1, 3)
+    #time.sleep(3)
+    #gui.click()
 
 
 def Inside_NMZ():
@@ -133,7 +133,7 @@ def Inside_NMZ():
 
     # Repeat for 6 hours
     while time.monotonic() < six_hour_logout:
-        single_absorption_timer = time.monotonic() + 7 * 60
+        single_absorption_timer = time.monotonic() + 8.5 * 60
         # Rapid heal for 7 minutes
         rapid_heal_for_duration(single_absorption_timer)
         # Drink 1 absorption
@@ -147,8 +147,8 @@ def Inside_NMZ():
 
 def run():
     time.sleep(3)
-    #cf.login()
-    #cf.scroll_medium()
+    # cf.login()
+    #1cf.scroll_medium()
     #cf.compass_scroll_out()
     #cf.click_compass()
     #cf.angle_up()
