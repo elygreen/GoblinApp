@@ -20,10 +20,10 @@ import time
 
 coord_Dom = (751, 236)
 NMZ_start_to_NMZ_1 = (429, 305)
-NUM_OVERLOADS = 0
+NUM_OVERLOADS = 6
 POTION_DOSES = 4
 NUM_ABSORBTIONS_PER_OVERLOAD = math.ceil((27 - 1 - NUM_OVERLOADS) / NUM_OVERLOADS)
-NUM_INITIAL_ABSORPTIONS = 5
+NUM_INITIAL_ABSORPTIONS = 1
 
 def Dom():
     time.sleep(2)
@@ -79,9 +79,7 @@ def enter_nmz():
     # click accept
     cf.move_and_click_variable_coord((967, 334), -1, 3)
     # run to right corner
-    cf.move_and_click_variable_coord((1406, 62), -1, 3)
-    time.sleep(3)
-    gui.click()
+    cf.move_and_click_variable_coord((1306, 62), -1, 3)
 
 
 def Inside_NMZ():
@@ -94,19 +92,13 @@ def Inside_NMZ():
 
     ### HELPER FUNCTIONS ###
     def spam_rockcake():
-        cf.move_and_click(first_slot, .31, -1)
+        cf.move_and_click(first_slot, -1, -1)
         for j in range(random.randrange(27, 37)):
-            time.sleep(random.randrange(27, 43) / 100)
+            time.sleep(random.randrange(17, 43) / 100)
             gui.click()
 
-    def rapid_heal_for_duration(duration = time.monotonic() + 5 * 60):
-        gui.moveTo(coords.quick_prayer[0], coords.quick_prayer[1], .27)
-        gui.click()
-        cf.move_and_click(first_slot, .3, -1)
-        gui.click()
-        time.sleep(.2)
-        gui.click()
-        gui.moveTo(coords.quick_prayer[0], coords.quick_prayer[1], .37)
+    def rapid_heal_for_duration(duration):
+        gui.moveTo(coords.quick_prayer[0], coords.quick_prayer[1], 1)
         while time.monotonic() < duration:
             gui.click()
             time.sleep(random.uniform(.15, .25))
@@ -120,27 +112,33 @@ def Inside_NMZ():
             time.sleep(random.randrange(17, 43) / 100)
 
     ### START OF NMZ INSIDE CYCLE ###
-    six_hour_logout = time.monotonic() + 6 * 60 * 60
-
-    # DRINK Initial (5) absorptions right off the bat
+    # DRINK 6 absorptions right off the bat
     for initial_absorptions in range(NUM_INITIAL_ABSORPTIONS):
         coord = absorption_slots.pop(0)
         gui.moveTo(coord[0], coord[1], 1)
         spam_absorption()
 
-    spam_rockcake()
-
-    # Repeat for 6 hours
-    while time.monotonic() < six_hour_logout:
-        single_absorption_timer = time.monotonic()
-        while time.monotonic() < single_absorption_timer:
-            # Rapid heal for 7 minutes
-            rapid_heal_for_duration(time.monotonic() + 7 * 60)
-            # Drink 1 absorption
-            next_absorption = absorption_slots.pop(0)
-            gui.moveTo(next_absorption[0], next_absorption[1], .37)
+    # Repeat for as many overloads as we have
+    for overloads in range(NUM_OVERLOADS):
+        # Drink absorptions
+        for absorptions in range(NUM_ABSORBTIONS_PER_OVERLOAD):
+            if not absorption_slots:
+                break
+            current_absorption_coord = absorption_slots.pop(0)
+            gui.moveTo(current_absorption_coord[0], current_absorption_coord[1], 1)
             spam_absorption()
-
+        # Get current overload position
+        current_overload_coord = overload_slots.pop(0)
+        # Repeat for 4 doses of overload potion
+        for i in range(POTION_DOSES):
+            # Sip current overload
+            cf.move_and_click_variable_coord(current_overload_coord, -1, -1)
+            time.sleep(6)
+            current_overload_cycle_end_time = time.monotonic() + (60 * 5)
+            # Spam rockcake
+            spam_rockcake()
+            # Rapid heal for 5 minutes
+            rapid_heal_for_duration(current_overload_cycle_end_time)
 
 
 
