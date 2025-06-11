@@ -140,23 +140,6 @@ def Inside_NMZ():
             next_absorption = absorption_slots.pop(0)
             gui.moveTo(next_absorption[0], next_absorption[1], .37)
             spam_absorption()
-<<<<<<< Updated upstream
-
-=======
-        # Get current overload position
-        current_overload_coord = overload_slots.pop(0)
-        # Repeat for 4 doses of overload potion
-        for i in range(POTION_DOSES):
-            # Sip current overload
-            cf.move_and_click_variable_coord(current_overload_coord, -1, -1)
-            time.sleep(7)
-            current_overload_cycle_end_time = time.monotonic() + (60 * 5)
-            # Spam rockcake
-            spam_rockcake()
-            # Rapid heal for 5 minutes
-            rapid_heal_for_duration(current_overload_cycle_end_time)
->>>>>>> Stashed changes
-
 
 
     
