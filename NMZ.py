@@ -23,6 +23,24 @@ NMZ_start_to_NMZ_1 = (429, 305)
 NUM_OVERLOADS = 0
 POTION_DOSES = 4
 NUM_INITIAL_ABSORPTIONS = 5
+BANKPIN = "9149"
+
+def Buy_Absorptions():
+    # Click from NMZ start to Reward Shop chest
+    cf.move_and_click((808, 95), -1, 3)
+    gui.write(BANKPIN, interval=0.27)
+    # Click "Benefits", right click absorbs, buy 255
+    cf.move_and_click((734, 139), -1, -1)
+    cf.move_and_rightclick((743, 313), -1, -1)
+    cf.move_and_click((741, 444), -1, -1)
+    gui.write("255", interval=0.27)
+    gui.press("enter")
+    time.sleep(.2)
+    gui.press("esc")
+    time.sleep(.15)
+    # Click from reward shop to starting square
+    cf.move_and_click((697, 466), -1, 3)
+
 
 def Dom():
     time.sleep(2)
@@ -151,15 +169,16 @@ def Inside_NMZ():
 
 def run():
     time.sleep(3)
-    # cf.login()
-    #1cf.scroll_medium()
-    #cf.compass_scroll_out()
-    #cf.click_compass()
-    #cf.angle_up()
-    #Dom()
-    #deposit_potions()
-    #take_potions()
-    #enter_nmz()
+    cf.login()
+    cf.scroll_medium()
+    cf.compass_scroll_out()
+    cf.click_compass()
+    cf.angle_up()
+    Buy_Absorptions()
+    Dom()
+    deposit_potions()
+    take_potions()
+    enter_nmz()
     time.sleep(3)
     Inside_NMZ()
 

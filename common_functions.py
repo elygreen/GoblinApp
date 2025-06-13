@@ -18,6 +18,7 @@ def click_compass():
 
 
 def login():
+    move_and_click(coords.disconnected, -1, 2)
     move_and_click(coords.play_now, 1, 10)
     move_and_click(coords.click_here_to_play, 1, 4)
 
