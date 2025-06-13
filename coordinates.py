@@ -8,6 +8,7 @@ inventory_slot = [(1232, 377), (1294, 377), (1357, 377), (1419, 377),
                   (1232, 700), (1294, 700), (1357, 700), (1419, 700)]
 
 click_here_to_play = (946, 540)
+you_were_disconnected = (940, 486)
 compass = (1206, 62)
 middle_screen = (772, 284)
 minimap_middle = (1336, 156)
