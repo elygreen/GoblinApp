@@ -151,7 +151,7 @@ def Inside_NMZ():
 
     # Repeat for 6 hours
     while time.monotonic() < six_hour_logout:
-        single_absorption_timer = time.monotonic() + 9 * 60
+        single_absorption_timer = time.monotonic() + 10 * 60
         # Rapid heal for 9 minutes
         rapid_heal_for_duration(single_absorption_timer)
         # Drink 1 absorption
