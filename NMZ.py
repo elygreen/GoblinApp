@@ -151,7 +151,7 @@ def Inside_NMZ():
 
     # Repeat for 6 hours
     while time.monotonic() < six_hour_logout:
-        single_absorption_timer = time.monotonic() + 10 * 60
+        single_absorption_timer = time.monotonic() + 11 * 60
         # Rapid heal for 9 minutes
         rapid_heal_for_duration(single_absorption_timer)
         # Drink 1 absorption
@@ -160,7 +160,7 @@ def Inside_NMZ():
             gui.moveTo(next_absorption[0], next_absorption[1], .37)
             spam_absorption()
         else:
-            rapid_heal_for_duration(time.monotonic() + 9 * 60 * 5)
+            rapid_heal_for_duration(time.monotonic() + 20 * 60)
             break
 
 
@@ -168,18 +168,20 @@ def Inside_NMZ():
 
 
 def run():
-    time.sleep(3)
-    cf.login()
-    cf.scroll_medium()
-    cf.compass_scroll_out()
-    cf.click_compass()
-    cf.angle_up()
-    Buy_Absorptions()
-    Dom()
-    deposit_potions()
-    take_potions()
-    enter_nmz()
-    time.sleep(3)
-    Inside_NMZ()
+    for i in range(3):
+        time.sleep(3)
+        cf.login()
+        cf.scroll_medium()
+        cf.compass_scroll_out()
+        cf.click_compass()
+        cf.angle_up()
+        Buy_Absorptions()
+        Dom()
+        deposit_potions()
+        take_potions()
+        enter_nmz()
+        time.sleep(3)
+        Inside_NMZ()
+        time.sleep(8 * 60)
 
 

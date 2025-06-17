@@ -7,5 +7,6 @@ import SandCrabCave
 import common_functions as cf
 
 if __name__ == '__main__':
-    cf.print_mouse_tk()
+    #cf.print_mouse_tk()
     #NMZ.run()
+    SandCrabCave.Run()
