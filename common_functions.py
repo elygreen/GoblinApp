@@ -100,6 +100,7 @@ def print_mouse_tk():
 
 def scroll_in():
     click_compass()
+    # Move to middle of play screen and zoom in
     gui.moveTo((coords.middle_screen[0], coords.middle_screen[1]), 1, 1)
     scrollTime = time.monotonic() + 5
     while time.monotonic() < scrollTime:
