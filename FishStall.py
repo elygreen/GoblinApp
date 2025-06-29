@@ -14,6 +14,7 @@ FISH_STALL_COORDS = (721, 403)
 ####################
 # Raw tuna, salmon, and lobster set to left click drop
 # Lure thief
+
 def Run():
     cf.click_compass()
     cf.scroll_in()
