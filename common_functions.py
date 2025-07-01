@@ -42,9 +42,9 @@ def move_and_rightclick(coordinate, sec=1, wait=0):
 
 def move_and_click_variable_coord(coordinate, sec=1, wait=0):
     if sec == -1:
-        sec = round(random.uniform(0.7, 1.1), 2)
+        sec = round(random.uniform(0.63, .77), 2)
     if wait == -1:
-        wait = round(random.uniform(0.9, 1.3), 2)
+        wait = round(random.uniform(0.7, 1.0), 2)
     varied_coordinate_x = coordinate[0] + random.randint(-7, 7)
     varied_coordinate_y = coordinate[1] + random.randint(-7, 7)
     gui.moveTo(varied_coordinate_x, varied_coordinate_y, sec)
