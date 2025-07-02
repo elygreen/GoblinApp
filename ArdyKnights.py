@@ -93,7 +93,7 @@ def Run():
     while num_food_left > 0:
         loop_time = time.monotonic()
         # FOOD EATING LOOP
-        while time.monotonic() < loop_time + TIME_BETWEEN_EATS:
+        while time.monotonic() < loop_time + TIME_BETWEEN_EATS-20:
             coin_pouch_timer = time.monotonic()
             # COINPOUCH LOOP
             while time.monotonic() < coin_pouch_timer + COIN_POUCH_MAX:
@@ -103,9 +103,12 @@ def Run():
                      cf.move_and_click(knight_position, random.uniform(.1, .27), random.uniform(.19, .37))
             # Open coin pouch
             cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
+            for k in range(7):
+                gui.click()
+                time.sleep(random.uniform(.1, .27))
         cf.move_and_click(coords.inventory_slot[current_food_slot], -1, -1)
         # Make sure food is eaten if started in stun
-        for k in range(6):
+        for k in range(7):
             gui.click()
             time.sleep(random.uniform(.1, .27))
         num_food_left -= 1
