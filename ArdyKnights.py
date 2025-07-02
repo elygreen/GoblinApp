@@ -88,27 +88,27 @@ def Run():
     start_time = time.monotonic()
     search_area = (S_LEFT, S_TOP, S_RIGHT, S_BOT)
     num_food_left = 26
-    current_food_slot = 3
+    current_food_slot = 2
     # FOOD REMAINING LOOP
     while num_food_left > 0:
-        loop_time = time.monotonic()
+        food_eating_timer = time.monotonic()
         # FOOD EATING LOOP
-        while time.monotonic() < loop_time + TIME_BETWEEN_EATS-20:
+        while time.monotonic() < food_eating_timer + TIME_BETWEEN_EATS:
             coin_pouch_timer = time.monotonic()
             # COINPOUCH LOOP
-            while time.monotonic() < coin_pouch_timer + COIN_POUCH_MAX:
+            while time.monotonic() < coin_pouch_timer + COIN_POUCH_MAX * 2:
                  time.sleep(random.uniform(0.05, 0.15))
                  knight_position = find_colored_hull_center_optimized(HULL_COLOR, TOLERANCE, search_area)
                  if knight_position:
                      cf.move_and_click(knight_position, random.uniform(.1, .27), random.uniform(.19, .37))
             # Open coin pouch
             cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
-            for k in range(7):
+            for k in range(4):
                 gui.click()
                 time.sleep(random.uniform(.1, .27))
         cf.move_and_click(coords.inventory_slot[current_food_slot], -1, -1)
         # Make sure food is eaten if started in stun
-        for k in range(7):
+        for k in range(4):
             gui.click()
             time.sleep(random.uniform(.1, .27))
         num_food_left -= 1
