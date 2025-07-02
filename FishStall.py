@@ -24,10 +24,10 @@ def Run():
         #cf.move_and_click_variable_coord(SPICE_STALL, -1, -1)
         cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, random.uniform(.1, .3))
         cf.move_and_click_variable_coord(SPICE_STALL, -1, random.uniform(0, .3))
-        for i in range(20):
+        for i in range(19):
             wait_time = time.monotonic() + 5.3 + random.uniform(.2, .5)
             while time.monotonic() < wait_time:
                 gui.click()
                 time.sleep(random.uniform(.1, .3))
-        for i in range(21):
+        for i in range(25):
             cf.move_and_click_variable_coord(coords.inventory_slot[i], random.uniform(.13, .27), random.uniform(.1, .2))
