@@ -20,3 +20,5 @@ tab_settings = (1371, 758)
 tab_settings_zoom = (1414, 361)
 
 zoom_bar_middle = (1346, 511)
+
+### SCREEN COORDINATES ###
