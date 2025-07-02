@@ -12,7 +12,7 @@ ARDY_KNIGHT_COORD = (567, 229)
 
 COIN_POUCH_MAX = 28
 HULL_COLOR = (255, 0, 154)
-TIME_BETWEEN_EATS = 10
+TIME_BETWEEN_EATS = 90
 RUN_TIME = 5.5 * 60 * 60
 TOLERANCE = 10
 
@@ -45,9 +45,7 @@ def find_colored_hull(target_color, tolerance=0):
         for y in range(height):
             pixel_color = screenshot.getpixel((x, y))
             if color_match(pixel_color, target_color, tolerance):
-                print(f"Color found at: {x}, {y}")
                 return x, y
-    print(f"Color not found")
     return None
 
 
@@ -83,6 +81,7 @@ def color_match(given_color, target_color, tolerance):
     g_diff = abs(given_color[1] - target_color[1])
     b_diff = abs(given_color[2] - target_color[2])
     return (r_diff <= tolerance) and (g_diff <= tolerance) and (b_diff <= tolerance)
+
 
 def Run():
     time.sleep(3)
