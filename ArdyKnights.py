@@ -10,10 +10,22 @@ import coordinates as coords
 
 ARDY_KNIGHT_COORD = (567, 229)
 
+COIN_POUCH_MAX = 28
 HULL_COLOR = (255, 0, 154)
 TIME_BETWEEN_EATS = 10
 RUN_TIME = 5.5 * 60 * 60
 TOLERANCE = 10
+
+####################
+###    SET UP    ###
+####################
+# Ardy Knight hull color set to HULL_COLOR
+# Coin pouch slot 1
+# Coins slot 2
+# rest of inventory set to food
+# start in ardy bank
+
+
 
 def take_screenshot():
     screenshot = gui.screenshot()
@@ -45,7 +57,7 @@ def color_match(given_color, target_color, tolerance):
 def Run():
     time.sleep(3)
     start_time = time.monotonic()
-    for i in range(len(coords.inventory_slot)):
+    for i in range(2, len(coords.inventory_slot)-2):
         loop_time = time.monotonic()
         while time.monotonic() < loop_time + TIME_BETWEEN_EATS:
             knight_position = find_colored_hull(HULL_COLOR, TOLERANCE)
@@ -57,3 +69,4 @@ def Run():
         for k in range(6):
             gui.click()
             time.sleep(random.uniform(.1, .27))
+        cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
