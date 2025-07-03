@@ -20,7 +20,7 @@ SPICE_STALL = (769, 399)
 def Run():
     time.sleep(2)
     start_time = time.monotonic()
-    while time.monotonic() < start_time + 5.5 * 60 * 60:
+    while time.monotonic() < start_time + 5.0 * 60 * 60:
         #cf.move_and_click_variable_coord(SPICE_STALL, -1, -1)
         cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, random.uniform(.1, .3))
         cf.move_and_click_variable_coord(SPICE_STALL, -1, random.uniform(0, .3))

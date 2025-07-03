@@ -99,21 +99,17 @@ def print_mouse_tk():
 
 
 def scroll_in():
-    click_compass()
-    # Move to middle of play screen and zoom in
-    gui.moveTo((coords.middle_screen[0], coords.middle_screen[1]), 1, 1)
-    scrollTime = time.monotonic() + 5
-    while time.monotonic() < scrollTime:
-        gui.scroll(100)
+    move_and_click(coords.tab_settings, -1, -1)
+    move_and_click(coords.tab_settings_zoom, -1, -1)
+    move_and_click(coords.zoom_bar_min, -1, -1)
+    move_and_click(coords.tab_inventory, -1, -1)
 
 
 def scroll_out():
-    click_compass()
-    gui.moveTo((coords.middle_screen[0], coords.middle_screen[1]), 1, 1)
-    scrollTime = time.monotonic() + 5
-    while time.monotonic() < scrollTime:
-        gui.scroll(-100)
-    time.sleep(1)
+    move_and_click(coords.tab_settings, -1, -1)
+    move_and_click(coords.tab_settings_zoom, -1, -1)
+    move_and_click(coords.zoom_bar_max, -1, -1)
+    move_and_click(coords.tab_inventory, -1, -1)
 
 
 def scroll_medium():
@@ -122,6 +118,11 @@ def scroll_medium():
     move_and_click(coords.zoom_bar_middle, -1, -1)
     move_and_click(coords.tab_inventory, -1, -1)
 
+def scroll_4():
+    move_and_click(coords.tab_settings, -1, -1)
+    move_and_click(coords.tab_settings_zoom, -1, -1)
+    move_and_click(coords.zoom_bar_4, -1, -1)
+    move_and_click(coords.tab_inventory, -1, -1)
 
 def compass_scroll_in():
     gui.moveTo(coords.minimap_middle[0], coords.minimap_middle, 1)

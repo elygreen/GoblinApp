@@ -9,12 +9,12 @@ import common_functions as cf
 import coordinates as coords
 
 ARDY_KNIGHT_COORD = (567, 229)
-FOOD_COORD = (388, 188)
+FOOD_COORD = (566, 180)
 
 COIN_POUCH_MAX = 28
 HULL_COLOR = (255, 0, 154)
-HULL_COLOR_BANK = (255, 29, 255)
-TIME_BETWEEN_EATS = 90
+HULL_COLOR_BANK = (0, 255, 29)
+TIME_BETWEEN_EATS = 40
 RUN_TIME = 5.5 * 60 * 60
 TOLERANCE = 10
 
@@ -87,7 +87,7 @@ def color_match(given_color, target_color, tolerance):
 
 def Pickpocket_Loop():
     time.sleep(3)
-    cf.scroll_medium()
+    cf.scroll_4()
     start_time = time.monotonic()
     search_area = (S_LEFT, S_TOP, S_RIGHT, S_BOT)
     num_food_left = 26
@@ -131,15 +131,29 @@ def Bank_Loop():
         for i in range(6):
             cf.move_and_click_variable_coord(coords.inventory_slot[i+2], -1, -1)
         bank_position = find_colored_hull(HULL_COLOR_BANK, TOLERANCE)
+        bank_position[0] = bank_position[0] + 5
+        bank_position[1] = bank_position[1] + 5
         if bank_position:
             gui.keyDown("shift")
-            cf.move_and_click(bank_position, -1, 5)
+            cf.move_and_click(bank_position, -1, 2.5)
             gui.keyUp("shift")
             cf.move_and_click(FOOD_COORD, -1, -1)
             gui.press("esc")
+            cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
+    else:
+        print("no match")
+    knight_position = find_colored_hull_center_optimized(HULL_COLOR, TOLERANCE)
+    while not knight_position:
+        knight_position = find_colored_hull_center_optimized(HULL_COLOR, TOLERANCE)
+        time.sleep(3)
+    if knight_position:
+        cf.move_and_click(knight_position, random.uniform(.1, .27), random.uniform(.19, .37))
+        time.sleep(3)
 
 
 def Run():
-    Pickpocket_Loop()
-    Bank_Loop()
+    start_time = time.monotonic()
+    while time.monotonic() < start_time + 5 * 60 * 60:
+        Pickpocket_Loop()
+        Bank_Loop()
 
