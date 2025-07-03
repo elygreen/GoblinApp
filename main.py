@@ -14,5 +14,5 @@ if __name__ == '__main__':
     #NMZ.run()
     #SandCrabCave.Run()
     #ArdyKnights.Run()
-    ArdyKnights2.Run()
+    ArdyKnights2.Bank_Loop_test()
     #FishStall.Run()

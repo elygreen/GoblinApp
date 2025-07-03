@@ -123,6 +123,7 @@ def Bank_Loop():
     cf.scroll_out()
     bank_position = find_colored_hull(HULL_COLOR_BANK, TOLERANCE)
     if bank_position:
+        print("found")
         gui.keyDown("shift")
         cf.move_and_click(bank_position, -1, 5)
         gui.keyUp("shift")
@@ -149,7 +150,7 @@ def Bank_Loop():
     if knight_position:
         cf.move_and_click(knight_position, random.uniform(.1, .27), random.uniform(.19, .37))
         time.sleep(3)
-
+        
 
 def Run():
     start_time = time.monotonic()
