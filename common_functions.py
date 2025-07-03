@@ -117,10 +117,10 @@ def scroll_out():
 
 
 def scroll_medium():
-    move_and_click(coords.tab_settings, 1, 1)
-    move_and_click(coords.tab_settings_zoom, 1, 1)
-    move_and_click(coords.zoom_bar_middle, 1, 1)
-    move_and_click(coords.tab_inventory, 1, 1)
+    move_and_click(coords.tab_settings, -1, -1)
+    move_and_click(coords.tab_settings_zoom, -1, -1)
+    move_and_click(coords.zoom_bar_middle, -1, -1)
+    move_and_click(coords.tab_inventory, -1, -1)
 
 
 def compass_scroll_in():
