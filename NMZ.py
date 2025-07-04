@@ -171,7 +171,7 @@ def run():
     for i in range(3):
         time.sleep(3)
         cf.login()
-        cf.scroll_medium()
+        cf.screen_scroll(coords.zoom_bar_middle)
         cf.compass_scroll_out()
         cf.click_compass()
         cf.angle_up()

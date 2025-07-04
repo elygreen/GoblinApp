@@ -22,14 +22,16 @@ def login():
     move_and_click(coords.play_now, 1, 10)
     move_and_click(coords.click_here_to_play, 1, 4)
 
+
 def move_and_click(coordinate, sec=1, wait=0):
     if sec == -1:
-        sec = round(random.uniform(0.37, .61), 2)
+        sec = round(random.uniform(0.27, .47), 2)
     if wait == -1:
-        wait = round(random.uniform(0.9, 1.3), 2)
+        wait = round(random.uniform(0.27, .47), 2)
     gui.moveTo(coordinate[0], coordinate[1], sec)
     gui.click()
     time.sleep(wait)
+
 
 def move_and_rightclick(coordinate, sec=1, wait=0):
     if sec == -1:
@@ -39,6 +41,7 @@ def move_and_rightclick(coordinate, sec=1, wait=0):
     gui.moveTo(coordinate[0], coordinate[1], sec)
     gui.rightClick()
     time.sleep(wait)
+
 
 def move_and_click_variable_coord(coordinate, sec=1, wait=0):
     if sec == -1:
@@ -63,16 +66,20 @@ def move_and_rightclick_variable_coord(coordinate, sec=1, wait=0):
     gui.rightClick()
     time.sleep(wait)
 
+
 def second_rng(lower=0.7, upper=1.1):
     return round(random.uniform(lower, upper), 2)
 
+
 def wait_rng(lower=0.9, upper=1.3):
     return round(random.uniform(lower, upper), 2)
+
 
 def print_mouse():
     while True:
         time.sleep(1)
         print(gui.position())
+
 
 def print_mouse_tk():
     root = tk.Tk()
@@ -123,6 +130,14 @@ def scroll_4():
     move_and_click(coords.tab_settings_zoom, -1, -1)
     move_and_click(coords.zoom_bar_4, -1, -1)
     move_and_click(coords.tab_inventory, -1, -1)
+
+
+def screen_scroll(zoom_bar_coords):
+    move_and_click(coords.tab_settings, -1, -1)
+    move_and_click(coords.tab_settings_zoom, -1, -1)
+    move_and_click(zoom_bar_coords, -1, -1)
+    move_and_click(coords.tab_inventory, -1, -1)
+
 
 def compass_scroll_in():
     gui.moveTo(coords.minimap_middle[0], coords.minimap_middle, 1)
