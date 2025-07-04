@@ -14,7 +14,7 @@ FOOD_COORD = (566, 180)
 COIN_POUCH_MAX = 28
 HULL_COLOR = (255, 0, 154)
 HULL_COLOR_BANK = (0, 255, 29)
-TIME_BETWEEN_EATS = 40
+TIME_BETWEEN_EATS = 45
 RUN_TIME = 5.5 * 60 * 60
 TOLERANCE = 10
 
@@ -119,33 +119,32 @@ def Pickpocket_Loop():
 
 
 def Bank_Loop():
+    search_area = (S_LEFT, S_TOP, S_RIGHT, S_BOT)
     time.sleep(2)
     cf.scroll_out()
-    bank_position = find_colored_hull(HULL_COLOR_BANK, TOLERANCE)
+    bank_position = find_colored_hull_center_optimized(HULL_COLOR_BANK, TOLERANCE, search_area)
     if bank_position:
         print("found")
         gui.keyDown("shift")
-        cf.move_and_click(bank_position, -1, 5)
+        cf.move_and_click(bank_position, -1, 8)
         gui.keyUp("shift")
         cf.move_and_click(FOOD_COORD, -1, -1)
         gui.press("esc")
-        for i in range(6):
+        for i in range(2):
             cf.move_and_click_variable_coord(coords.inventory_slot[i+2], -1, -1)
-        bank_position = find_colored_hull(HULL_COLOR_BANK, TOLERANCE)
-        bank_position[0] = bank_position[0] + 5
-        bank_position[1] = bank_position[1] + 5
+        bank_position = find_colored_hull_center_optimized(HULL_COLOR_BANK, TOLERANCE, search_area)
         if bank_position:
             gui.keyDown("shift")
-            cf.move_and_click(bank_position, -1, 2.5)
+            cf.move_and_click(bank_position, -1, 2)
             gui.keyUp("shift")
             cf.move_and_click(FOOD_COORD, -1, -1)
             gui.press("esc")
             cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
     else:
         print("no match")
-    knight_position = find_colored_hull_center_optimized(HULL_COLOR, TOLERANCE)
+    knight_position = find_colored_hull_center_optimized(HULL_COLOR, TOLERANCE, search_area)
     while not knight_position:
-        knight_position = find_colored_hull_center_optimized(HULL_COLOR, TOLERANCE)
+        knight_position = find_colored_hull_center_optimized(HULL_COLOR, TOLERANCE, search_area)
         time.sleep(3)
     if knight_position:
         cf.move_and_click(knight_position, random.uniform(.1, .27), random.uniform(.19, .37))
