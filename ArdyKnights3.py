@@ -89,6 +89,19 @@ def color_match(given_color, target_color, tolerance):
     return (r_diff <= tolerance) and (g_diff <= tolerance) and (b_diff <= tolerance)
 
 
+def find_knight():
+    knight_position = find_colored_hull_center_fast_crop(HULL_COLOR, TOLERANCE, GAME_SCREEN)
+    if not knight_position:
+        cf.screen_scroll(coords.zoom_bar_max)
+        while not knight_position:
+            knight_position = find_colored_hull_center_fast_crop(HULL_COLOR, TOLERANCE, GAME_SCREEN)
+            time.sleep(3)
+    if knight_position:
+        cf.move_and_click(knight_position, random.uniform(.1, .27), random.uniform(.19, .37))
+        cf.screen_scroll(coords.zoom_bar_4)
+        time.sleep(3)
+
+
 def pickpocket_loop():
     time.sleep(3)
     cf.screen_scroll(coords.zoom_bar_4)
@@ -107,6 +120,8 @@ def pickpocket_loop():
                 knight_position = find_colored_hull_center_fast_crop(HULL_COLOR, TOLERANCE, GAME_SCREEN)
                 if knight_position:
                     cf.move_and_click(knight_position, random.uniform(.1, .27), random.uniform(.19, .37))
+                else:
+                    find_knight()
             # Open coin pouch
             cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
             for k in range(4):
@@ -143,14 +158,8 @@ def bank_loop():
             gui.press("esc")
             cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
     else:
-        print("no match")
-    knight_position = find_colored_hull_center_fast_crop(HULL_COLOR, TOLERANCE, GAME_SCREEN)
-    while not knight_position:
-        knight_position = find_colored_hull_center_fast_crop(HULL_COLOR, TOLERANCE, GAME_SCREEN)
-        time.sleep(3)
-    if knight_position:
-        cf.move_and_click(knight_position, random.uniform(.1, .27), random.uniform(.19, .37))
-        time.sleep(3)
+        print("no bank match")
+    find_knight()
 
 
 def run():
