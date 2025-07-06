@@ -103,7 +103,7 @@ def find_knight():
 
 
 def pickpocket_loop():
-    time.sleep(3)
+    time.sleep(2)
     cf.screen_scroll(coords.zoom_bar_4)
     num_food_left = 26
     # Slot 1 = coin pouch, Slot 2 = coins
@@ -147,16 +147,7 @@ def bank_loop():
         gui.keyUp("shift")
         cf.move_and_click(FOOD_COORD, -1, -1)
         gui.press("esc")
-        for i in range(2):
-            cf.move_and_click_variable_coord(coords.inventory_slot[i + 2], -1, -1)
-        bank_position = find_colored_hull_center_fast_crop(HULL_COLOR_BANK, TOLERANCE, GAME_SCREEN)
-        if bank_position:
-            gui.keyDown("shift")
-            cf.move_and_click(bank_position, -1, 2)
-            gui.keyUp("shift")
-            cf.move_and_click(FOOD_COORD, -1, -1)
-            gui.press("esc")
-            cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
+        cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
     else:
         print("no bank match")
     find_knight()
@@ -164,6 +155,6 @@ def bank_loop():
 
 def run():
     start_time = time.monotonic()
-    while time.monotonic() < start_time + 5.5 * 60 * 60:
+    while time.monotonic() < start_time + 5.8 * 60 * 60:
         pickpocket_loop()
         bank_loop()
