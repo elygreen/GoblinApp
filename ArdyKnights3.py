@@ -14,7 +14,7 @@ FOOD_COORD = (566, 180)
 COIN_POUCH_MAX = 28
 HULL_COLOR = (255, 0, 154)
 HULL_COLOR_BANK = (0, 255, 29)
-TIME_BETWEEN_EATS = 45
+TIME_BETWEEN_EATS = 60
 RUN_TIME = 5.5 * 60 * 60
 TOLERANCE = 10
 
@@ -74,10 +74,12 @@ def find_colored_hull_center_fast_crop(target_color, tolerance=0, search_area=No
     return center_x, center_y
 
 
-# For speed without numpy dependency:
-# find_colored_hull_center_optimized = find_colored_hull_center_optimized_fast
-# For region-based search:
-# find_colored_hull_center_optimized = find_colored_hull_center_region_split
+def open_coin_pouch():
+    cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
+    for k in range(4):
+        gui.click()
+        time.sleep(random.uniform(.1, .27))
+
 
 
 def color_match(given_color, target_color, tolerance):
@@ -111,11 +113,12 @@ def pickpocket_loop():
     # FOOD REMAINING LOOP
     while num_food_left > 0:
         food_eating_timer = time.monotonic()
+        food_timer_division = 3
         # FOOD EATING LOOP
-        while time.monotonic() < food_eating_timer + TIME_BETWEEN_EATS:
-            coin_pouch_timer = time.monotonic()
-            # COINPOUCH LOOP
-            while time.monotonic() < coin_pouch_timer + COIN_POUCH_MAX * 2:
+        for i in range(food_timer_division):
+            while time.monotonic() < food_eating_timer + TIME_BETWEEN_EATS * (1 / food_timer_division):
+                coin_pouch_timer = time.monotonic()
+                # COINPOUCH LOOP
                 time.sleep(random.uniform(0.05, 0.15))
                 knight_position = find_colored_hull_center_fast_crop(HULL_COLOR, TOLERANCE, GAME_SCREEN)
                 if knight_position:
@@ -123,12 +126,9 @@ def pickpocket_loop():
                 else:
                     find_knight()
             # Open coin pouch
-            cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
-            for k in range(4):
-                gui.click()
-                time.sleep(random.uniform(.1, .27))
-        cf.move_and_click(coords.inventory_slot[current_food_slot], -1, -1)
+            open_coin_pouch()
         # Make sure food is eaten if started in stun
+        cf.move_and_click(coords.inventory_slot[current_food_slot], -1, -1)
         for k in range(4):
             gui.click()
             time.sleep(random.uniform(.1, .27))
