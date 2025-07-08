@@ -124,6 +124,8 @@ def pickpocket_loop():
                 knight_position = find_colored_hull_center_fast_crop(HULL_COLOR, TOLERANCE, GAME_SCREEN)
                 if knight_position:
                     cf.move_and_click(knight_position, random.uniform(.1, .27), random.uniform(.19, .37))
+                    time.sleep(random.uniform(0.19, 0.39))
+                    gui.click()
                 else:
                     find_knight()
             # Open coin pouch
