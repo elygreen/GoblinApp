@@ -14,7 +14,7 @@ FOOD_COORD = (566, 180)
 COIN_POUCH_MAX = 28
 HULL_COLOR = (255, 0, 154)
 HULL_COLOR_BANK = (0, 255, 29)
-TIME_BETWEEN_EATS = 60
+TIME_BETWEEN_EATS = 75
 RUN_TIME = 5.5 * 60 * 60
 TOLERANCE = 10
 
@@ -116,10 +116,11 @@ def pickpocket_loop():
         food_timer_division = 3
         # FOOD EATING LOOP
         for i in range(food_timer_division):
-            while time.monotonic() < food_eating_timer + TIME_BETWEEN_EATS * (1 / food_timer_division):
+            segment_start = time.monotonic()
+            while time.monotonic() < segment_start + TIME_BETWEEN_EATS * (1 / food_timer_division):
                 coin_pouch_timer = time.monotonic()
                 # COINPOUCH LOOP
-                time.sleep(random.uniform(0.05, 0.15))
+                time.sleep(random.uniform(0.03, 0.79))
                 knight_position = find_colored_hull_center_fast_crop(HULL_COLOR, TOLERANCE, GAME_SCREEN)
                 if knight_position:
                     cf.move_and_click(knight_position, random.uniform(.1, .27), random.uniform(.19, .37))
@@ -155,6 +156,6 @@ def bank_loop():
 
 def run():
     start_time = time.monotonic()
-    while time.monotonic() < start_time + 5.8 * 60 * 60:
+    while time.monotonic() < start_time + 5.67 * 60 * 60:
         pickpocket_loop()
         bank_loop()
