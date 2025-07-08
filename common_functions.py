@@ -25,9 +25,9 @@ def login():
 
 def move_and_click(coordinate, sec=1, wait=0):
     if sec == -1:
-        sec = round(random.uniform(0.27, .47), 2)
+        sec = random.uniform(0.17, .37)
     if wait == -1:
-        wait = round(random.uniform(0.27, .47), 2)
+        wait = random.uniform(0.17, .37)
     gui.moveTo(coordinate[0], coordinate[1], sec)
     gui.click()
     time.sleep(wait)
@@ -35,9 +35,9 @@ def move_and_click(coordinate, sec=1, wait=0):
 
 def move_and_rightclick(coordinate, sec=1, wait=0):
     if sec == -1:
-        sec = round(random.uniform(0.7, 1.1), 2)
+        sec = random.uniform(0.7, 1.1)
     if wait == -1:
-        wait = round(random.uniform(0.9, 1.3), 2)
+        wait = random.uniform(0.9, 1.3)
     gui.moveTo(coordinate[0], coordinate[1], sec)
     gui.rightClick()
     time.sleep(wait)

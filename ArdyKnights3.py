@@ -14,7 +14,7 @@ FOOD_COORD = (566, 180)
 COIN_POUCH_MAX = 28
 HULL_COLOR = (255, 0, 154)
 HULL_COLOR_BANK = (0, 255, 29)
-TIME_BETWEEN_EATS = 75
+TIME_BETWEEN_EATS = 80
 RUN_TIME = 5.5 * 60 * 60
 TOLERANCE = 10
 
@@ -76,7 +76,7 @@ def find_colored_hull_center_fast_crop(target_color, tolerance=0, search_area=No
 
 def open_coin_pouch():
     cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
-    for k in range(4):
+    for k in range(3):
         gui.click()
         time.sleep(random.uniform(.1, .27))
 
@@ -101,11 +101,11 @@ def find_knight():
     if knight_position:
         cf.move_and_click(knight_position, random.uniform(.1, .27), random.uniform(.19, .37))
         cf.screen_scroll(coords.zoom_bar_4)
-        time.sleep(3)
+        time.sleep(random.uniform(0.37, .99))
 
 
 def pickpocket_loop():
-    time.sleep(2)
+    time.sleep(random.uniform(0.37, .99))
     cf.screen_scroll(coords.zoom_bar_4)
     num_food_left = 26
     # Slot 1 = coin pouch, Slot 2 = coins
@@ -124,7 +124,7 @@ def pickpocket_loop():
                 knight_position = find_colored_hull_center_fast_crop(HULL_COLOR, TOLERANCE, GAME_SCREEN)
                 if knight_position:
                     cf.move_and_click(knight_position, random.uniform(.1, .27), random.uniform(.19, .37))
-                    time.sleep(random.uniform(0.19, 0.39))
+                    time.sleep(random.uniform(0.09, 0.29))
                     gui.click()
                 else:
                     find_knight()
@@ -140,13 +140,13 @@ def pickpocket_loop():
 
 
 def bank_loop():
-    time.sleep(2)
+    time.sleep(random.uniform(0.37, .99))
     cf.screen_scroll(coords.zoom_bar_max)
     bank_position = find_colored_hull_center_fast_crop(HULL_COLOR_BANK, TOLERANCE, GAME_SCREEN)
     if bank_position:
         print("found")
         gui.keyDown("shift")
-        cf.move_and_click(bank_position, -1, 8)
+        cf.move_and_click(bank_position, -1, 6)
         gui.keyUp("shift")
         cf.move_and_click(FOOD_COORD, -1, -1)
         gui.press("esc")
