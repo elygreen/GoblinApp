@@ -2,9 +2,8 @@ import sys
 import time
 import threading
 import pyautogui as gui
-import ArdyKnights
-import ArdyKnights2
 import ArdyKnights3
+import ArdyKnightsNoFood
 import NMZ
 import FishStall
 import SandCrabCave
@@ -15,5 +14,6 @@ if __name__ == '__main__':
     #NMZ.run()
     #SandCrabCave.Run()
     #ArdyKnights.Run()
-    ArdyKnights3.run()
+    #ArdyKnights3.run()
+    ArdyKnightsNoFood.run()
     #FishStall.Run()
