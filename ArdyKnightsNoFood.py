@@ -22,6 +22,8 @@ S_RIGHT = 1136
 S_BOT = 540
 GAME_SCREEN = (S_LEFT, S_TOP, S_RIGHT, S_BOT)
 
+isZoomed = False
+
 
 ####################
 ###    SET UP    ###
@@ -78,6 +80,8 @@ def open_coin_pouch():
         time.sleep(random.uniform(.1, .27))
 
 
+# Match two given colors based on the difference between their RGB values
+# with a given level of tolerance
 def color_match(given_color, target_color, tolerance):
     if tolerance == 0:
         return given_color == target_color
@@ -87,22 +91,30 @@ def color_match(given_color, target_color, tolerance):
     return (r_diff <= tolerance) and (g_diff <= tolerance) and (b_diff <= tolerance)
 
 
+# Function to find knight based on tagged hull color using NPC Tagger
+# If knight can't be found on current zoom, zoom to max distance and repeat until success
 def find_knight():
     knight_position = find_colored_hull_center_fast_crop(HULL_COLOR, TOLERANCE, GAME_SCREEN)
     if not knight_position:
         cf.screen_scroll(coords.zoom_bar_max)
+        isZoomed = False
         while not knight_position:
             knight_position = find_colored_hull_center_fast_crop(HULL_COLOR, TOLERANCE, GAME_SCREEN)
             time.sleep(3)
     if knight_position:
         cf.move_and_click(knight_position, random.uniform(.1, .27), random.uniform(.19, .37))
         cf.screen_scroll(coords.zoom_bar_4)
+        isZoomed = True
         time.sleep(random.uniform(0.37, .99))
 
 
+# Pickpocket knight loop for duration of max coin pouch allotment
+# Zooms in, finds knight by hull color, then open the coin pouches
 def pickpocket_loop():
     time.sleep(random.uniform(0.37, .99))
-    cf.screen_scroll(coords.zoom_bar_4)
+    # Only zoom in on loop if screen isn't already zoomed in
+    if not isZoomed:
+        cf.screen_scroll(coords.zoom_bar_4)
     timer = time.monotonic()
     while time.monotonic() < timer + COIN_POUCH_MAX:
         time.sleep(random.uniform(0.03, 0.79))
@@ -115,7 +127,6 @@ def pickpocket_loop():
             find_knight()
     # Open coin pouch
     open_coin_pouch()
-
 
 
 def run():
