@@ -23,6 +23,11 @@ def login():
     move_and_click(coords.click_here_to_play, 1, 4)
 
 
+def logout():
+    move_and_click((1329, 765), -1, -1)
+    move_and_click((1323, 670), -1, -1)
+
+
 def move_and_click(coordinate, sec=1, wait=0):
     if sec == -1:
         sec = random.uniform(0.17, .37)

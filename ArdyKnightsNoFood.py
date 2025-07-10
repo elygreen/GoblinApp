@@ -12,7 +12,7 @@ import coordinates as coords
 COIN_POUCH_MAX = 56
 HULL_COLOR = (255, 0, 154)
 HULL_COLOR_BANK = (0, 255, 29)
-RUN_TIME = 5.5 * 60 * 60
+RUN_TIME = 3.4 * 60 * 60
 TOLERANCE = 10
 
 # Pixel coordinates of game screen when in full screen
@@ -120,5 +120,7 @@ def pickpocket_loop():
 
 def run():
     start_time = time.monotonic()
-    while time.monotonic() < start_time + RUN_TIME
+    while time.monotonic() < start_time + RUN_TIME:
         pickpocket_loop()
+    time.sleep(3)
+    cf.logout()

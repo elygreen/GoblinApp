@@ -113,7 +113,7 @@ def pickpocket_loop():
     # FOOD REMAINING LOOP
     while num_food_left > 0:
         food_eating_timer = time.monotonic()
-        food_timer_division = 3
+        food_timer_division = 2
         # FOOD EATING LOOP
         for i in range(food_timer_division):
             segment_start = time.monotonic()
