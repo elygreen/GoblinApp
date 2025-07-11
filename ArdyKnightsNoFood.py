@@ -12,7 +12,7 @@ import coordinates as coords
 COIN_POUCH_MAX = 56
 HULL_COLOR = (255, 0, 154)
 HULL_COLOR_BANK = (0, 255, 29)
-RUN_TIME = 3.4 * 60 * 60
+RUN_TIME = 5.0 * 60 * 60
 TOLERANCE = 10
 
 # Pixel coordinates of game screen when in full screen
@@ -94,14 +94,16 @@ def color_match(given_color, target_color, tolerance):
 # Function to find knight based on tagged hull color using NPC Tagger
 # If knight can't be found on current zoom, zoom to max distance and repeat until success
 def find_knight():
+    global isZoomed
     knight_position = find_colored_hull_center_fast_crop(HULL_COLOR, TOLERANCE, GAME_SCREEN)
     if not knight_position:
         cf.screen_scroll(coords.zoom_bar_max)
         isZoomed = False
         while not knight_position:
+            time.sleep(1)
             knight_position = find_colored_hull_center_fast_crop(HULL_COLOR, TOLERANCE, GAME_SCREEN)
-            time.sleep(3)
-    if knight_position:
+            time.sleep(2)
+    else:
         cf.move_and_click(knight_position, random.uniform(.1, .27), random.uniform(.19, .37))
         cf.screen_scroll(coords.zoom_bar_4)
         isZoomed = True
@@ -111,10 +113,12 @@ def find_knight():
 # Pickpocket knight loop for duration of max coin pouch allotment
 # Zooms in, finds knight by hull color, then open the coin pouches
 def pickpocket_loop():
+    global isZoomed
     time.sleep(random.uniform(0.37, .99))
     # Only zoom in on loop if screen isn't already zoomed in
     if not isZoomed:
         cf.screen_scroll(coords.zoom_bar_4)
+        isZoomed = True
     timer = time.monotonic()
     while time.monotonic() < timer + COIN_POUCH_MAX:
         time.sleep(random.uniform(0.03, 0.79))
