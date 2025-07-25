@@ -7,6 +7,13 @@ import tkinter as tk
 
 import coordinates as coords
 
+
+HULL_COLOR_PINK = (255, 0, 154)
+HULL_COLOR_GREEN = (0, 255, 29)
+# Coordinates of gamescreen on fullscreen Runelite application for my specific laptop,
+# your coordinates will vary!
+DEFAULT_GAME_SCREEN = (368, 30, 1136, 540)
+
 def angle_up():
     gui.moveTo(coords.middle_screen[0], coords.middle_screen[1], 1)
     gui.keyDown('up')
@@ -163,3 +170,41 @@ def compass_scroll_out():
 def wait_aggro_timer():
     wait_time = random.uniform(610, 630)
     time.sleep(wait_time)
+
+
+def take_screenshot():
+    screenshot = gui.screenshot()
+    screenshot.save("screenshot.png")
+    return screenshot
+
+def find_colored_hull_center(target_color, tolerance=0, search_area=None):
+    # Crop screen then convert to numpy
+    if search_area:
+        left, top, right, bottom = search_area
+        # Take screenshot of only the search area
+        screenshot = gui.screenshot(region=(left, top, right-left, bottom-top))
+        offset_x, offset_y = left, top
+    else:
+        screenshot = take_screenshot()
+        offset_x, offset_y = 0, 0
+
+    img_array = np.array(screenshot)
+    # Boolean mask for matching pixels
+    if tolerance == 0:
+        mask = np.all(img_array == target_color, axis=2)
+    else:
+        # Vectorized tolerance check
+        diff = np.abs(img_array - target_color)
+        mask = np.all(diff <= tolerance, axis=2)
+
+    # Find matching coordinates
+    matching_coords = np.where(mask)
+
+    if len(matching_coords[0]) == 0:
+        return None
+
+    # Calculate center of matching pixels
+    center_y = int(np.mean(matching_coords[0]).item()) + offset_y
+    center_x = int(np.mean(matching_coords[1]).item()) + offset_x
+
+    return center_x, center_y

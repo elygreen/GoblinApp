@@ -2,7 +2,7 @@ import sys
 import time
 import threading
 import pyautogui as gui
-import ArdyKnights3
+import ArdyKnightsWithFood
 import ArdyKnightsNoFood
 import NMZ
 import FishStall
