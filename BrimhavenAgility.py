@@ -10,6 +10,7 @@ import common_functions as cf
 import coordinates as coords
 
 DEFAULT_TOLERANCE = 5
+RUN_TIME = 5.5
 
 
 def start():
@@ -37,6 +38,7 @@ def enter_arena():
     cf.screen_scroll(coords.zoom_bar_1)
     time.sleep(2)
 
+
 def get_to_obstacle():
     obstacle_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     cf.move_and_click(obstacle_location, -1, 8)
@@ -44,3 +46,25 @@ def get_to_obstacle():
     cf.move_and_click((630, 332), -1, 5)
     cf.screen_scroll(coords.zoom_bar_5)
     gui.press("/")
+
+
+def auto_click():
+    time.sleep(1.5)
+    cf.move_and_click((989, 360), -1, -1)
+    time_start = time.monotonic()
+    while time.monotonic() < time_start + RUN_TIME * 60 * 60:
+        time.sleep(random.uniform(0.27, 0.47))
+        gui.click()
+
+
+def finish():
+    gui.press("/")
+    cf.logout()
+
+
+def run():
+    start()
+    enter_arena()
+    get_to_obstacle()
+    auto_click()
+    finish()
