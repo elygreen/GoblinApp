@@ -4,11 +4,12 @@ import random
 import threading
 import pyautogui as gui
 import tkinter as tk
+import numpy as np
 
 import coordinates as coords
 
 
-HULL_COLOR_PINK = (255, 0, 154)
+HULL_COLOR_PINK = (255, 9, 154)
 HULL_COLOR_GREEN = (0, 255, 29)
 # Coordinates of gamescreen on fullscreen Runelite application for my specific laptop,
 # your coordinates will vary!
@@ -32,7 +33,10 @@ def login():
 
 def logout():
     move_and_click((1329, 765), -1, -1)
-    move_and_click((1323, 670), -1, -1)
+    current_time = time.monotonic()
+    while time.monotonic() < current_time + 10:
+        move_and_click((1323, 670), -1, -1)
+        time.sleep(1)
 
 
 def move_and_click(coordinate, sec=1, wait=0):

@@ -12,6 +12,7 @@ import common_functions as cf
 import random
 
 if __name__ == '__main__':
+    time.sleep(2)
     #cf.print_mouse_tk()
     BrimhavenAgility.run()
     #NMZ.run()

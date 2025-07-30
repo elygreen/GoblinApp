@@ -10,7 +10,7 @@ import common_functions as cf
 import coordinates as coords
 
 DEFAULT_TOLERANCE = 5
-RUN_TIME = 5.5
+RUN_TIME = 4.5
 
 
 def start():
@@ -26,7 +26,6 @@ def enter_arena():
             captain_izzy_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
             time.sleep(3)
     cf.move_and_click(captain_izzy_location, -1, 3)
-    cf.screen_scroll(coords.zoom_bar_middle)
     time.sleep(90)
     ladder_location = cf.find_colored_hull_center(cf.HULL_COLOR_GREEN, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     if not ladder_location:
@@ -42,8 +41,8 @@ def enter_arena():
 def get_to_obstacle():
     obstacle_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     cf.move_and_click(obstacle_location, -1, 8)
-    cf.move_and_click((724, 436), -1, 8)
-    cf.move_and_click((630, 332), -1, 5)
+    cf.move_and_click([724, 436], -1, 8)
+    cf.move_and_click([630, 332], -1, 5)
     cf.screen_scroll(coords.zoom_bar_5)
     gui.press("/")
 
