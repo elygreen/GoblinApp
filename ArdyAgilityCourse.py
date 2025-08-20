@@ -39,7 +39,7 @@ obstacle_7_wait = 12.5
 
 
 def extra_wait():
-    return random.uniform(0.03, 0.99)
+    return random.uniform(0.03, 0.37)
 
 
 def start():
@@ -48,7 +48,6 @@ def start():
     cf.click_compass()
     cf.angle_up()
     time.sleep(3)
-    ardy_lap()
 
 
 def ardy_lap():
@@ -69,7 +68,6 @@ def finish():
 
 def run():
     start()
-    enter_arena()
-    get_to_obstacle()
-    auto_click()
+    for x in range(1000):
+        ardy_lap()
     finish()
