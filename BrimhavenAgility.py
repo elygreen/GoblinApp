@@ -17,6 +17,7 @@ def start():
     cf.login()
     cf.screen_scroll(coords.zoom_bar_middle)
     cf.click_compass()
+    cf.angle_up()
     time.sleep(3)
 
 def enter_arena():
