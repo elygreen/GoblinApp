@@ -17,29 +17,33 @@ import coordinates as coords
 DEFAULT_TOLERANCE = 5
 RUN_TIME = 5.4
 
+laps_until_pickup = 20
+current_laps = 0
+
 obstacle_1_coords = (915, 255)
 obstacle_1_wait = 5.1
 obstacle_2_coords = (739, 48)
-obstacle_2_wait = 8.2
-obstacle_3_coords = (618, 289)
-obstacle_3_wait = 7.8
+obstacle_2_wait = 8.1
+obstacle_3_coords = (621, 291)
+obstacle_3_wait = 7.4
 mark_of_grace_coords = (785, 296)
-mark_of_grace_wait = 2.5
+mark_of_grace_wait = 2.2
 obstacle_4_coords = (644, 297)
-obstacle_4_wait = 3.7
+obstacle_4_wait = 3.2
 obstacle_5_coords = (752, 484)
-obstacle_5_wait = 4.9
+obstacle_5_wait = 4.2
 obstacle_5_midpoint_coords = (754, 468)
-obstacle_5_midpoint_wait = (2.6)
+obstacle_5_midpoint_wait = 2
 obstacle_6_coords = (865, 425)
-obstacle_6_wait = 6.8
+obstacle_6_wait = 6.0
 obstacle_7_coords = (771, 320)
-obstacle_7_wait = 12.5
+obstacle_7_wait = 12
 
 
 
 def extra_wait():
-    return random.uniform(0.03, 0.37)
+    #return 0
+    return random.uniform(0.03, 0.19)
 
 
 def start():
@@ -51,15 +55,22 @@ def start():
 
 
 def ardy_lap():
-    cf.move_and_click_variable_coord(obstacle_1_coords, -1, obstacle_1_wait + extra_wait())
-    cf.move_and_click_variable_coord(obstacle_2_coords, -1, obstacle_2_wait + extra_wait())
-    cf.move_and_click_variable_coord(obstacle_3_coords, -1, obstacle_3_wait + extra_wait())
-    cf.move_and_click_variable_coord(mark_of_grace_coords, -1, mark_of_grace_wait + extra_wait())
-    cf.move_and_click_variable_coord(obstacle_4_coords, -1, obstacle_4_wait + extra_wait())
-    cf.move_and_click_variable_coord(obstacle_5_coords, -1, obstacle_5_wait + extra_wait())
-    cf.move_and_click_variable_coord(obstacle_5_midpoint_coords, -1, obstacle_5_midpoint_wait + extra_wait())
-    cf.move_and_click_variable_coord(obstacle_6_coords, -1, obstacle_6_wait + extra_wait())
-    cf.move_and_click_variable_coord(obstacle_7_coords, -1, obstacle_7_wait + extra_wait())
+    global current_laps
+    global laps_until_pickup
+
+    cf.move_and_click(obstacle_1_coords, -1, obstacle_1_wait + extra_wait())
+    cf.move_and_click(obstacle_2_coords, -1, obstacle_2_wait + extra_wait())
+    cf.move_and_click(obstacle_3_coords, -1, obstacle_3_wait + extra_wait())
+    if current_laps >= laps_until_pickup:
+        cf.move_and_click(mark_of_grace_coords, -1, mark_of_grace_wait + extra_wait())
+        current_laps = 0
+    cf.move_and_click(obstacle_4_coords, -1, obstacle_4_wait + extra_wait())
+    cf.move_and_click(obstacle_5_coords, -1, obstacle_5_wait + extra_wait())
+    cf.move_and_click(obstacle_5_midpoint_coords, -1, obstacle_5_midpoint_wait + extra_wait())
+    cf.move_and_click(obstacle_6_coords, -1, obstacle_6_wait + extra_wait())
+    cf.move_and_click(obstacle_7_coords, -1, obstacle_7_wait + extra_wait())
+
+    current_laps += 1
 
 
 def finish():
@@ -68,6 +79,7 @@ def finish():
 
 def run():
     start()
-    for x in range(1000):
+    start_time = time.monotonic()
+    while start_time < time.monotonic() + RUN_TIME:
         ardy_lap()
     finish()
