@@ -212,3 +212,46 @@ def find_colored_hull_center(target_color, tolerance=0, search_area=None):
     center_x = int(np.mean(matching_coords[1]).item()) + offset_x
 
     return center_x, center_y
+
+
+def find_first_colored_pixel(target_color, tolerance=0, search_area=None):
+    """
+    Find the first pixel that matches the target color (scanning left-to-right, top-to-bottom).
+
+    Args:
+        target_color: RGB tuple of target color
+        tolerance: Color tolerance for matching
+        search_area: Optional (left, top, right, bottom) to search within
+
+    Returns:
+        (x, y) coordinates of first matching pixel, or None if no match found
+    """
+    # Get screenshot and setup offsets
+    if search_area:
+        left, top, right, bottom = search_area
+        screenshot = gui.screenshot(region=(left, top, right - left, bottom - top))
+        offset_x, offset_y = left, top
+    else:
+        screenshot = take_screenshot()
+        offset_x, offset_y = 0, 0
+
+    img_array = np.array(screenshot)
+
+    # Create mask for matching pixels
+    if tolerance == 0:
+        mask = np.all(img_array == target_color, axis=2)
+    else:
+        diff = np.abs(img_array - target_color)
+        mask = np.all(diff <= tolerance, axis=2)
+
+    # Find first matching pixel
+    matching_coords = np.where(mask)
+
+    if len(matching_coords[0]) == 0:
+        return None
+
+    # Get the first match (numpy returns in row-major order, so this is top-left-most)
+    first_y = matching_coords[0][0] + offset_y
+    first_x = matching_coords[1][0] + offset_x
+
+    return first_x, first_y
