@@ -16,6 +16,7 @@ play_now = (941, 420)
 quick_prayer = (1196, 174)
 
 tab_inventory = (1328, 315)
+tab_magic = (1479, 307)
 tab_settings = (1371, 758)
 tab_settings_zoom = (1414, 361)
 

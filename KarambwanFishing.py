@@ -7,10 +7,12 @@ from PIL import Image
 import numpy as np
 
 import common_functions as cf
+import coordinates
 import coordinates as coords
 
 DEFAULT_TOLERANCE = 5
 RUN_TIME = 5.4
+MINIMAP_RIGHT_SIDE_COORD = [1418, 153]
 
 ####################
 ###    SET UP    ###
@@ -18,62 +20,48 @@ RUN_TIME = 5.4
 # left click ardy cape in 1st slot of inv
 # Varrock teleport runes in inv
 # left click Varrock teleport to grand exchange
+# fairy ring set to dkp
 
 def start():
     #cf.login()
     #cf.screen_scroll(coords.zoom_bar_1)
     #cf.click_compass()
     #cf.angle_up()
+    cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, 4)
     # Scroll mininmap up for 4 seconds
-    minimap_rightside_coord = [1418, 153]
-    gui.moveTo(minimap_rightside_coord)
+    gui.moveTo(MINIMAP_RIGHT_SIDE_COORD)
     start_time = time.monotonic()
     while time.monotonic() < start_time + 3:
         gui.scroll(-300)
-    gui.leftClick()
-    time.sleep(3)
 
 
 def fairy_ring_dkp():
     cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, 4)
-    cf.m
+    cf.move_and_click(MINIMAP_RIGHT_SIDE_COORD, -1, 12 + random.uniform(0, 2))
+    fairy_ring_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
+    if not fairy_ring_location:
+        return
+    cf.move_and_click(fairy_ring_location, -1, 7)
 
-def enter_arena():
-    captain_izzy_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-    if not captain_izzy_location:
-        cf.screen_scroll(coords.zoom_bar_max)
-        while not captain_izzy_location:
-            captain_izzy_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-            time.sleep(3)
-    cf.move_and_click(captain_izzy_location, -1, 3)
-    time.sleep(90)
-    ladder_location = cf.find_colored_hull_center(cf.HULL_COLOR_GREEN, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-    if not ladder_location:
-        cf.screen_scroll(coords.zoom_bar_max)
-        while not ladder_location:
-            ladder_location = cf.find_colored_hull_center(cf.HULL_COLOR_GREEN, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-            time.sleep(3)
-    cf.move_and_click(ladder_location, -1, 3)
-    cf.screen_scroll(coords.zoom_bar_1)
-    time.sleep(2)
+def begin_fishing():
+    fishing_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
+    while not fishing_location:
+        time.sleep(5)
+        fishing_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
+    cf.move_and_click(fishing_location, -1, -1)
+    time.sleep(85 + random.uniform(1, 7))
 
 
-def get_to_obstacle():
-    obstacle_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-    cf.move_and_click(obstacle_location, -1, 8)
-    cf.move_and_click([720, 450], -1, 8)
-    cf.move_and_click([587, 332], -1, 5)
-    cf.screen_scroll(coords.zoom_bar_5)
-    gui.press("/")
-
-
-def auto_click():
-    time.sleep(1.5)
-    cf.move_and_click((989, 360), -1, -1)
-    time_start = time.monotonic()
-    while time.monotonic() < time_start + RUN_TIME * 60 * 60:
-        time.sleep(random.uniform(0.27, 0.47))
-        gui.click()
+def bank_inventory():
+    cf.move_and_click(coordinates.tab_magic, -1, -1)
+    varrock_tele_location = (1249, 430)
+    cf.move_and_click(varrock_tele_location, -1, -1)
+    cf.move_and_click(coordinates.tab_inventory, -1, -1)
+    bank_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
+    cf.move_and_click(bank_location, -1, 5)
+    gui.write("9149", interval=0.27)
+    cf.move_and_click(coords.inventory_slot[8], -1, -1)
+    gui.press("esc")
 
 
 def finish():
@@ -83,3 +71,8 @@ def finish():
 
 def run():
     start()
+    start_time = time.monotonic()
+    while time.monotonic() < start_time + RUN_TIME:
+        fairy_ring_dkp()
+        begin_fishing()
+        bank_inventory()
