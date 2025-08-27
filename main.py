@@ -8,15 +8,17 @@ import ArdyAgilityCourse
 import ArdyKnightsWithFood
 import ArdyKnightsNoFood
 import BrimhavenAgility
-import NMZ
 import FishStall
+import KarambwanFishing
+import NMZ
 import SandCrabCave
 import common_functions as cf
 
 if __name__ == '__main__':
     time.sleep(2)
-    #cf.print_mouse_tk()
-    ArdyAgilityCourse.run()
+    cf.print_mouse_tk()
+    #KarambwanFishing.run()
+    #ArdyAgilityCourse.run()
     #BrimhavenAgility.run()
     #NMZ.run()
     #SandCrabCave.Run()

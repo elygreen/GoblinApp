@@ -21,16 +21,15 @@ RUN_TIME = 5.4
 
 def start():
     #cf.login()
-    cf.screen_scroll(coords.zoom_bar_1)
-    cf.click_compass()
-    cf.angle_up()
+    #cf.screen_scroll(coords.zoom_bar_1)
+    #cf.click_compass()
+    #cf.angle_up()
     # Scroll mininmap up for 4 seconds
     minimap_rightside_coord = [1418, 153]
     gui.moveTo(minimap_rightside_coord)
     start_time = time.monotonic()
-    while time.monotonic() < start_time + 4:
-        gui.scroll(3)
-        time.sleep(0.1)
+    while time.monotonic() < start_time + 3:
+        gui.scroll(-300)
     gui.leftClick()
     time.sleep(3)
 
