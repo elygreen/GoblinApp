@@ -27,17 +27,17 @@ obstacle_2_wait = 8.1
 obstacle_3_coords = (621, 291)
 obstacle_3_wait = 7.4
 mark_of_grace_coords = (785, 296)
-mark_of_grace_wait = 2.2
+mark_of_grace_wait = 2.3
 obstacle_4_coords = (644, 297)
-obstacle_4_wait = 3.2
+obstacle_4_wait = 3.3
 obstacle_5_coords = (752, 484)
-obstacle_5_wait = 4.2
+obstacle_5_wait = 4.4
 obstacle_5_midpoint_coords = (754, 468)
-obstacle_5_midpoint_wait = 2
+obstacle_5_midpoint_wait = 2.23
 obstacle_6_coords = (865, 425)
-obstacle_6_wait = 6.0
+obstacle_6_wait = 6.35
 obstacle_7_coords = (771, 320)
-obstacle_7_wait = 12
+obstacle_7_wait = 12.1
 
 
 
