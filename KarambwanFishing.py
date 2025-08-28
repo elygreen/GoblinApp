@@ -11,8 +11,10 @@ import coordinates
 import coordinates as coords
 
 DEFAULT_TOLERANCE = 5
-RUN_TIME = 5.4
+RUN_TIME = 4.5
 MINIMAP_RIGHT_SIDE_COORD = [1418, 153]
+
+first_bank = True
 
 ####################
 ###    SET UP    ###
@@ -27,39 +29,44 @@ def start():
     #cf.screen_scroll(coords.zoom_bar_1)
     #cf.click_compass()
     #cf.angle_up()
-    cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, 4)
     # Scroll mininmap up for 4 seconds
-    gui.moveTo(MINIMAP_RIGHT_SIDE_COORD)
-    start_time = time.monotonic()
-    while time.monotonic() < start_time + 3:
-        gui.scroll(-300)
+    #gui.moveTo(MINIMAP_RIGHT_SIDE_COORD)
+    #start_time = time.monotonic()
+    #while time.monotonic() < start_time + 3:
+    #    gui.scroll(-300)
+    print("Start")
 
 
 def fairy_ring_dkp():
-    cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, 4)
-    cf.move_and_click(MINIMAP_RIGHT_SIDE_COORD, -1, 12 + random.uniform(0, 2))
+    cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, 3)
+    cf.move_and_click(MINIMAP_RIGHT_SIDE_COORD, -1, 10 + random.uniform(0, 2))
+    cf.move_and_click((988, 201), -1, 6)
     fairy_ring_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     if not fairy_ring_location:
         return
-    cf.move_and_click(fairy_ring_location, -1, 7)
+    cf.move_and_click(fairy_ring_location, -1, 10)
 
 def begin_fishing():
     fishing_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     while not fishing_location:
-        time.sleep(5)
+        print("searching for fishing spot")
+        time.sleep(3)
         fishing_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     cf.move_and_click(fishing_location, -1, -1)
-    time.sleep(85 + random.uniform(1, 7))
+    time.sleep(110 + random.uniform(1, 7))
 
 
 def bank_inventory():
     cf.move_and_click(coordinates.tab_magic, -1, -1)
     varrock_tele_location = (1249, 430)
-    cf.move_and_click(varrock_tele_location, -1, -1)
+    cf.move_and_click(varrock_tele_location, -1, 3)
     cf.move_and_click(coordinates.tab_inventory, -1, -1)
     bank_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-    cf.move_and_click(bank_location, -1, 5)
-    gui.write("9149", interval=0.27)
+    cf.move_and_click(bank_location, -1, 4)
+    global first_bank
+    if first_bank:
+        gui.write("9149", interval=0.27)
+        first_bank = False
     cf.move_and_click(coords.inventory_slot[8], -1, -1)
     gui.press("esc")
 
@@ -72,7 +79,7 @@ def finish():
 def run():
     start()
     start_time = time.monotonic()
-    while time.monotonic() < start_time + RUN_TIME:
+    while time.monotonic() < start_time + RUN_TIME * 60 * 60:
         fairy_ring_dkp()
         begin_fishing()
         bank_inventory()
