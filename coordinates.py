@@ -20,6 +20,10 @@ tab_magic = (1479, 307)
 tab_settings = (1371, 758)
 tab_settings_zoom = (1414, 361)
 
+bank_withdraw_quantity_all = (861, 517)
+
+bank_deposit_all = (1031, 503)
+
 zoom_bar_middle = (1346, 511)
 zoom_bar_min = (1417, 511)
 zoom_bar_max = (1272, 514)
