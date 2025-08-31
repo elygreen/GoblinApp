@@ -24,44 +24,50 @@ def start():
     cf.screen_scroll(coords.zoom_bar_middle)
     cf.click_compass()
     cf.angle_up()
-    time.sleep(3)
-
-def chin_hunting_loop():
-    box_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-    if not captain_izzy_location:
-        cf.screen_scroll(coords.zoom_bar_max)
-        while not captain_izzy_location:
-            captain_izzy_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-            time.sleep(3)
-    cf.move_and_click(captain_izzy_location, -1, 3)
-    time.sleep(90)
-    ladder_location = cf.find_colored_hull_center(cf.HULL_COLOR_GREEN, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-    if not ladder_location:
-        cf.screen_scroll(coords.zoom_bar_max)
-        while not ladder_location:
-            ladder_location = cf.find_colored_hull_center(cf.HULL_COLOR_GREEN, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-            time.sleep(3)
-    cf.move_and_click(ladder_location, -1, 3)
-    cf.screen_scroll(coords.zoom_bar_1)
     time.sleep(2)
 
+def chin_hunting_loop():
+    box_location = find_first_colored_pixel(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
+    while not box_location:
+        time.sleep(3)
+        box_location = find_first_colored_pixel(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
+    box_setup_wait = 2 + random.uniform(0, 1)
+    cf.move_and_click(box_location, -1, box_setup_wait)
 
-def get_to_obstacle():
-    obstacle_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-    cf.move_and_click(obstacle_location, -1, 8)
-    cf.move_and_click([720, 450], -1, 8)
-    cf.move_and_click([587, 332], -1, 5)
-    cf.screen_scroll(coords.zoom_bar_5)
-    gui.press("/")
 
+def find_first_colored_pixel(target_color, tolerance=0, search_area=None):
+    OVERCORRECT_PIXELS = 5
+    # Crop screen then convert to numpy
+    if search_area:
+        left, top, right, bottom = search_area
+        # Take screenshot of only the search area
+        screenshot = gui.screenshot(region=(left, top, right-left, bottom-top))
+        offset_x, offset_y = left, top
+    else:
+        screenshot = cf.take_screenshot()
+        offset_x, offset_y = 0, 0
 
-def auto_click():
-    time.sleep(1.5)
-    cf.move_and_click((989, 360), -1, -1)
-    time_start = time.monotonic()
-    while time.monotonic() < time_start + RUN_TIME * 60 * 60:
-        time.sleep(random.uniform(0.27, 0.47))
-        gui.click()
+    img_array = np.array(screenshot)
+    # Boolean mask for matching pixels
+    if tolerance == 0:
+        mask = np.all(img_array == target_color, axis=2)
+    else:
+        # Vectorized tolerance check
+        diff = np.abs(img_array - target_color)
+        mask = np.all(diff <= tolerance, axis=2)
+
+    # Find matching coordinates
+    matching_coords = np.where(mask)
+
+    if len(matching_coords[0]) == 0:
+        return None
+
+    # Return the first matching pixel (top-left in reading order)
+    first_y = matching_coords[0][0] + offset_y
+    first_x = matching_coords[1][0] + offset_x
+
+    return first_x+OVERCORRECT_PIXELS, first_y+OVERCORRECT_PIXELS
+
 
 
 def finish():
@@ -71,7 +77,6 @@ def finish():
 
 def run():
     start()
-    enter_arena()
-    get_to_obstacle()
-    auto_click()
-    finish()
+    start_time = time.monotonic()
+    while time.monotonic() < start_time + RUN_TIME * 60 * 60:
+        chin_hunting_loop()

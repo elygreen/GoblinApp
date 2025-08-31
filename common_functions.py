@@ -16,19 +16,19 @@ HULL_COLOR_GREEN = (0, 255, 29)
 DEFAULT_GAME_SCREEN = (368, 30, 1136, 540)
 
 def angle_up():
-    gui.moveTo(coords.middle_screen[0], coords.middle_screen[1], 1)
+    gui.moveTo(coords.middle_screen[0], coords.middle_screen[1], -1)
     gui.keyDown('up')
     time.sleep(3)
     gui.keyUp('up')
 
 def click_compass():
-    move_and_click(coords.compass, 1, 1)
+    move_and_click(coords.compass, 1, -1)
 
 
 def login():
-    move_and_click(coords.disconnected, -1, 2)
-    move_and_click(coords.play_now, 1, 10)
-    move_and_click(coords.click_here_to_play, 1, 4)
+    move_and_click(coords.disconnected, -1, -1)
+    move_and_click(coords.play_now, 1, 8)
+    move_and_click(coords.click_here_to_play, 1, 3)
 
 
 def logout():
