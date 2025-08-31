@@ -17,8 +17,9 @@ import common_functions as cf
 
 if __name__ == '__main__':
     time.sleep(2)
-    cf.print_mouse_tk()
-    #KarambwanFishing.run()
+    #cf.print_mouse_tk()
+    #HosidiousCooking.run()
+    KarambwanFishing.run()
     #ArdyAgilityCourse.run()
     #BrimhavenAgility.run()
     #NMZ.run()

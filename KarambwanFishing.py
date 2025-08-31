@@ -11,7 +11,7 @@ import coordinates
 import coordinates as coords
 
 DEFAULT_TOLERANCE = 5
-RUN_TIME = 4.5
+RUN_TIME = 5.7
 MINIMAP_RIGHT_SIDE_COORD = [1418, 153]
 
 first_bank = True
@@ -26,14 +26,14 @@ first_bank = True
 
 def start():
     #cf.login()
-    #cf.screen_scroll(coords.zoom_bar_1)
-    #cf.click_compass()
-    #cf.angle_up()
+    cf.screen_scroll(coords.zoom_bar_1)
+    cf.click_compass()
+    cf.angle_up()
     # Scroll mininmap up for 4 seconds
-    #gui.moveTo(MINIMAP_RIGHT_SIDE_COORD)
-    #start_time = time.monotonic()
-    #while time.monotonic() < start_time + 3:
-    #    gui.scroll(-300)
+    gui.moveTo(MINIMAP_RIGHT_SIDE_COORD)
+    start_time = time.monotonic()
+    while time.monotonic() < start_time + 3:
+        gui.scroll(-300)
     print("Start")
 
 
@@ -58,7 +58,7 @@ def begin_fishing():
 
 def bank_inventory():
     cf.move_and_click(coordinates.tab_magic, -1, -1)
-    varrock_tele_location = (1249, 430)
+    varrock_tele_location = (1255, 450)
     cf.move_and_click(varrock_tele_location, -1, 3)
     cf.move_and_click(coordinates.tab_inventory, -1, -1)
     bank_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
