@@ -9,6 +9,7 @@ import ArdyKnightsWithFood
 import ArdyKnightsNoFood
 import BrimhavenAgility
 import FishStall
+import GrayChins
 import HosidiousCooking
 import KarambwanFishing
 import NMZ
@@ -19,7 +20,8 @@ if __name__ == '__main__':
     time.sleep(2)
     #cf.print_mouse_tk()
     #HosidiousCooking.run()
-    KarambwanFishing.run()
+    GrayChins.run()
+    #KarambwanFishing.run()
     #ArdyAgilityCourse.run()
     #BrimhavenAgility.run()
     #NMZ.run()

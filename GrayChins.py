@@ -20,23 +20,23 @@ RUN_TIME = 5.4
 
 
 def start():
-    cf.login()
-    cf.screen_scroll(coords.zoom_bar_middle)
-    cf.click_compass()
-    cf.angle_up()
+    #cf.login()
+    #cf.screen_scroll(coords.zoom_bar_middle)
+    #cf.click_compass()
+    #cf.angle_up()
     time.sleep(2)
 
 def chin_hunting_loop():
     box_location = find_first_colored_pixel(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     while not box_location:
-        time.sleep(3)
+        time.sleep(2)
         box_location = find_first_colored_pixel(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-    box_setup_wait = 2 + random.uniform(0, 1)
+    box_setup_wait = 10 + random.uniform(0, 1)
     cf.move_and_click(box_location, -1, box_setup_wait)
 
 
 def find_first_colored_pixel(target_color, tolerance=0, search_area=None):
-    OVERCORRECT_PIXELS = 5
+    OVERCORRECT_PIXELS = 10
     # Crop screen then convert to numpy
     if search_area:
         left, top, right, bottom = search_area
