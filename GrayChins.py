@@ -20,33 +20,47 @@ DEFAULT_TOLERANCE = 5
 RUN_TIME = 5.4
 TEMPLATE_THRESHOLD = 0.8
 OVERCORRECT_PIXELS = 10
+BOX_SET_UP_WAIT = 10
 
 
 def start():
+    global fallen_trap_template
     #cf.login()
-    #cf.screen_scroll(coords.zoom_bar_middle)
-    #cf.click_compass()
-    #cf.angle_up()
-    time.sleep(2)
-
-def chin_hunting_loop():
+    cf.screen_scroll(coords.zoom_bar_middle)
+    cf.click_compass()
+    cf.angle_up()
     fallen_trap_template = load_fallen_trap_template("templates/box_trap.PNG")
     if fallen_trap_template is None:
         print("Error loading fallen trap template")
-    else:
+        quit()
+    time.sleep(2)
+
+
+def chin_hunting_loop():
+    # Check for fallen traps first
+    fix_fallen_traps()
+    # Check for other traps
+    fix_caught_and_failed_traps()
+    # Wait period
+    time.sleep(2.5)
+
+
+def fix_fallen_traps():
+    fallen_trap = find_fallen_trap_template(fallen_trap_template, cf.DEFAULT_GAME_SCREEN, TEMPLATE_THRESHOLD)
+    while fallen_trap is not None:
+        x, y = fallen_trap
+        cf.move_and_click((x, y), -1, box_set_up_wait_time())
         fallen_trap = find_fallen_trap_template(fallen_trap_template, cf.DEFAULT_GAME_SCREEN, TEMPLATE_THRESHOLD)
-        if fallen_trap is None:
-            print("No fallen traps found")
-        else:
-            x, y = fallen_trap
-            print(f"Fallen trap found at: {x}, {y} ")
-    time.sleep(5)
-    #box_location = find_first_colored_pixel(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-    #while not box_location:
-    #    time.sleep(2)
-    #    box_location = find_first_colored_pixel(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-    #box_setup_wait = 10 + random.uniform(0, 1)
-    #cf.move_and_click(box_location, -1, box_setup_wait)
+
+
+def fix_caught_and_failed_traps():
+    box_location = find_first_colored_pixel(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
+    if box_location:
+        cf.move_and_click(box_location, -1, box_set_up_wait_time())
+
+
+def box_set_up_wait_time():
+    return BOX_SET_UP_WAIT + random.uniform(0, 1)
 
 
 def load_fallen_trap_template(template_path):
