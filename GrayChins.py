@@ -40,6 +40,7 @@ def chin_hunting_loop():
         else:
             x, y = fallen_trap
             print(f"Fallen trap found at: {x}, {y} ")
+    time.sleep(5)
     #box_location = find_first_colored_pixel(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     #while not box_location:
     #    time.sleep(2)
