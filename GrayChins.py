@@ -63,7 +63,7 @@ def find_fallen_trap_template(template, search_area=None, threshold=TEMPLATE_THR
     try:
         if search_area:
             left, top, right, bottom = search_area
-            screenshot = gui.screenshot(rgion=(left, top, right-left, bottom-top))
+            screenshot = gui.screenshot(region=(left, top, right-left, bottom-top))
             offset_x, offset_y = left, top
         else:
             screenshot = cf.take_screenshot()
