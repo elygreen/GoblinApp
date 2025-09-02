@@ -5,6 +5,7 @@ import threading
 import pyautogui as gui
 import tkinter as tk
 import numpy as np
+import cv2
 
 import coordinates as coords
 
@@ -14,6 +15,7 @@ HULL_COLOR_GREEN = (0, 255, 29)
 # Coordinates of gamescreen on fullscreen Runelite application for my specific laptop,
 # your coordinates will vary!
 DEFAULT_GAME_SCREEN = (368, 30, 1136, 540)
+DEFAULT_IMAGE_MATCH_THRESHOLD = .75
 
 def angle_up():
     gui.moveTo(coords.middle_screen[0], coords.middle_screen[1], -1)
@@ -255,3 +257,40 @@ def find_first_colored_pixel(target_color, tolerance=0, search_area=None):
     first_x = matching_coords[1][0] + offset_x
 
     return first_x, first_y
+
+
+def load_image_template(template_path):
+    try:
+        template = cv2.imread(template_path, cv2.IMREAD_COLOR)
+        if template is None:
+            raise ValueError(f"Could not load template from {template_path}")
+        return template
+    except Exception as e:
+        print(f"Error loading template: {e}")
+        return None
+
+
+def find_template_on_screen(template, search_area=None, threshold=DEFAULT_IMAGE_MATCH_THRESHOLD):
+    try:
+        if search_area:
+            left, top, right, bottom = search_area
+            screenshot = gui.screenshot(region=(left, top, right-left, bottom-top))
+            offset_x, offset_y = left, top
+        else:
+            screenshot = take_screenshot()
+            offset_x, offset_y = 0, 0
+        screenshot_cv = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
+        result = cv2.matchTemplate(screenshot_cv, template, cv2.TM_CCOEFF_NORMED)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+        if max_val >= threshold:
+            template_h, template_w = template.shape[:2]
+            center_x = max_loc[0] + template_w // 2 + offset_x
+            center_y = max_loc[1] + template_h // 2 + offset_y
+            print(f"Found fallen trap at ({center_x}, {center_y}) with confidence {max_val:.3f}")
+            return center_x, center_y
+        else:
+            print(f"No fallen trap found (best match: {max_val:.3f}, threshold: {threshold})")
+            return None
+    except Exception as e:
+        print(f"Error in template matching: {e}")
+        return None

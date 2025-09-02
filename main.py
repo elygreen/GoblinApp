@@ -16,8 +16,12 @@ import NMZ
 import SandCrabCave
 import common_functions as cf
 
+NEEDS_LOGIN = False
+
 if __name__ == '__main__':
     time.sleep(2)
+    if NEEDS_LOGIN:
+        cf.login()
     #cf.print_mouse_tk()
     #HosidiousCooking.run()
     GrayChins.run()

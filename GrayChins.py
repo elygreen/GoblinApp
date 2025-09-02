@@ -17,19 +17,20 @@ import coordinates as coords
 # Set up box traps
 
 DEFAULT_TOLERANCE = 5
-RUN_TIME = 5.4
-TEMPLATE_THRESHOLD = 0.8
-OVERCORRECT_PIXELS = 10
-BOX_SET_UP_WAIT = 10
-
+RUN_TIME = 5.27
+TEMPLATE_THRESHOLD = 0.5
+OVERCORRECT_PIXELS = 3
+BOX_SET_UP_WAIT = 8.4
+FULL_SET_UP = False
 
 def start():
     global fallen_trap_template
-    #cf.login()
-    cf.screen_scroll(coords.zoom_bar_middle)
-    cf.click_compass()
-    cf.angle_up()
-    fallen_trap_template = load_fallen_trap_template("templates/box_trap.PNG")
+    if FULL_SET_UP:
+        cf.login()
+        cf.screen_scroll(coords.zoom_bar_middle)
+        cf.click_compass()
+        cf.angle_up()
+    fallen_trap_template = cf.load_image_template("templates/box_trap.PNG")
     if fallen_trap_template is None:
         print("Error loading fallen trap template")
         quit()
@@ -42,63 +43,25 @@ def chin_hunting_loop():
     # Check for other traps
     fix_caught_and_failed_traps()
     # Wait period
-    time.sleep(2.5)
+    time.sleep(.15)
 
 
 def fix_fallen_traps():
-    fallen_trap = find_fallen_trap_template(fallen_trap_template, cf.DEFAULT_GAME_SCREEN, TEMPLATE_THRESHOLD)
+    fallen_trap = cf.find_template_on_screen(fallen_trap_template, cf.DEFAULT_GAME_SCREEN, TEMPLATE_THRESHOLD)
     while fallen_trap is not None:
         x, y = fallen_trap
-        cf.move_and_click((x, y), -1, box_set_up_wait_time())
-        fallen_trap = find_fallen_trap_template(fallen_trap_template, cf.DEFAULT_GAME_SCREEN, TEMPLATE_THRESHOLD)
+        cf.move_and_click((x, y), random.uniform(0.17, .23), box_set_up_wait_time())
+        fallen_trap = cf.find_template_on_screen(fallen_trap_template, cf.DEFAULT_GAME_SCREEN, TEMPLATE_THRESHOLD)
 
 
 def fix_caught_and_failed_traps():
     box_location = find_first_colored_pixel(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     if box_location:
-        cf.move_and_click(box_location, -1, box_set_up_wait_time())
+        cf.move_and_click(box_location, random.uniform(0.17, .23), box_set_up_wait_time())
 
 
 def box_set_up_wait_time():
-    return BOX_SET_UP_WAIT + random.uniform(0, 1)
-
-
-def load_fallen_trap_template(template_path):
-    try:
-        template = cv2.imread(template_path, cv2.IMREAD_COLOR)
-        if template is None:
-            raise ValueError(f"Could not load template from {template_path}")
-        return template
-    except Exception as e:
-        print(f"Error loading template: {e}")
-        return None
-
-
-def find_fallen_trap_template(template, search_area=None, threshold=TEMPLATE_THRESHOLD):
-    try:
-        if search_area:
-            left, top, right, bottom = search_area
-            screenshot = gui.screenshot(region=(left, top, right-left, bottom-top))
-            offset_x, offset_y = left, top
-        else:
-            screenshot = cf.take_screenshot()
-            offset_x, offset_y = 0, 0
-        screenshot_cv = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
-        result = cv2.matchTemplate(screenshot_cv, template, cv2.TM_CCOEFF_NORMED)
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-        if max_val >= threshold:
-            template_h, template_w = template.shape[:2]
-            center_x = max_loc[0] + template_w // 2 + offset_x
-            center_y = max_loc[1] + template_h // 2 + offset_y
-            print(f"Found fallen trap at ({center_x}, {center_y}) with confidence {max_val:.3f}")
-            return center_x, center_y
-        else:
-            print(f"No fallen trap found (best match: {max_val:.3f}, threshold: {threshold})")
-            return None
-    except Exception as e:
-        print(f"Error in template matching: {e}")
-        return None
-
+    return BOX_SET_UP_WAIT + random.uniform(0, .7)
 
 
 def find_first_colored_pixel(target_color, tolerance=0, search_area=None):
