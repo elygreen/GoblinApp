@@ -8,7 +8,6 @@ import ArdyAgilityCourse
 import ArdyKnightsWithFood
 import ArdyKnightsNoFood
 import BrimhavenAgility
-import FishStall
 import GrayChins
 import HosidiousCooking
 import KarambwanFishing

@@ -1,10 +1,5 @@
-import sys
 import time
-import threading
-import pyautogui as gui
 import random
-from PIL import Image
-import numpy as np
 
 import common_functions as cf
 import coordinates as coords
@@ -40,9 +35,7 @@ obstacle_7_coords = (771, 320)
 obstacle_7_wait = 12.1
 
 
-
 def extra_wait():
-    #return 0
     return random.uniform(0.03, 0.19)
 
 

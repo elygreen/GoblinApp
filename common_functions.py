@@ -1,7 +1,5 @@
-import sys
 import time
 import random
-import threading
 import pyautogui as gui
 import tkinter as tk
 import numpy as np
@@ -9,10 +7,9 @@ import cv2
 
 import coordinates as coords
 
-
 HULL_COLOR_PINK = (255, 9, 154)
 HULL_COLOR_GREEN = (0, 255, 29)
-# Coordinates of gamescreen on fullscreen Runelite application for my specific laptop,
+# Coordinates of game screen on full screen Runelite application for my specific laptop,
 # your coordinates will vary!
 DEFAULT_GAME_SCREEN = (368, 30, 1136, 540)
 DEFAULT_IMAGE_MATCH_THRESHOLD = .75
@@ -48,7 +45,7 @@ def move_and_click(coordinate, sec=1, wait=0, click_type=0, precision=0):
         wait = random.uniform(0.17, .37)
     offset_x = 0
     offset_y = 0
-    if precision is not 0:
+    if precision != 0:
         if precision == -1:
             precision = 5
         offset_x = random.randint(-precision, precision)
@@ -119,6 +116,7 @@ def scroll_medium():
     move_and_click(coords.zoom_bar_middle, -1, -1)
     move_and_click(coords.tab_inventory, -1, -1)
 
+
 def scroll_4():
     move_and_click(coords.tab_settings, -1, -1)
     move_and_click(coords.tab_settings_zoom, -1, -1)
@@ -158,6 +156,7 @@ def take_screenshot():
     screenshot = gui.screenshot()
     screenshot.save("screenshot.png")
     return screenshot
+
 
 def find_colored_hull_center(target_color, tolerance=0, search_area=None):
     # Crop screen then convert to numpy

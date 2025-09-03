@@ -17,7 +17,7 @@ import coordinates as coords
 # Set up box traps
 
 DEFAULT_TOLERANCE = 5
-RUN_TIME = 5.27
+RUN_TIME = 2.37
 TEMPLATE_THRESHOLD = 0.5
 OVERCORRECT_PIXELS = 3
 BOX_SET_UP_WAIT = 8.4

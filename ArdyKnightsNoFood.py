@@ -1,9 +1,6 @@
-import sys
 import time
-import threading
 import pyautogui as gui
 import random
-from PIL import Image
 import numpy as np
 
 import common_functions as cf
