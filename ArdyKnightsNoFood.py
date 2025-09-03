@@ -74,7 +74,7 @@ def find_colored_hull_center_fast_crop(target_color, tolerance=0, search_area=No
 
 
 def open_coin_pouch():
-    cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
+    cf.move_and_click(coords.inventory_slot[0], -1, -1, precision=3)
     for k in range(3):
         gui.click()
         time.sleep(random.uniform(.1, .27))

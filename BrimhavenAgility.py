@@ -1,10 +1,6 @@
-import sys
 import time
-import threading
 import pyautogui as gui
 import random
-from PIL import Image
-import numpy as np
 
 import common_functions as cf
 import coordinates as coords
@@ -20,12 +16,14 @@ def start():
     cf.angle_up()
     time.sleep(3)
 
+
 def enter_arena():
     captain_izzy_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     if not captain_izzy_location:
         cf.screen_scroll(coords.zoom_bar_max)
         while not captain_izzy_location:
-            captain_izzy_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
+            captain_izzy_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK,
+                                                                DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
             time.sleep(3)
     cf.move_and_click(captain_izzy_location, -1, 3)
     time.sleep(90)
@@ -33,7 +31,8 @@ def enter_arena():
     if not ladder_location:
         cf.screen_scroll(coords.zoom_bar_max)
         while not ladder_location:
-            ladder_location = cf.find_colored_hull_center(cf.HULL_COLOR_GREEN, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
+            ladder_location = cf.find_colored_hull_center(cf.HULL_COLOR_GREEN,
+                                                          DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
             time.sleep(3)
     cf.move_and_click(ladder_location, -1, 3)
     cf.screen_scroll(coords.zoom_bar_1)

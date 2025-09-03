@@ -58,17 +58,17 @@ def ardy_lap():
     global current_laps
     global laps_until_pickup
 
-    cf.move_and_click(obstacle_1_coords, -1, obstacle_1_wait + extra_wait())
-    cf.move_and_click(obstacle_2_coords, -1, obstacle_2_wait + extra_wait())
-    cf.move_and_click(obstacle_3_coords, -1, obstacle_3_wait + extra_wait())
+    cf.move_and_click(obstacle_1_coords, -1, obstacle_1_wait + extra_wait(), 0, 0)
+    cf.move_and_click(obstacle_2_coords, -1, obstacle_2_wait + extra_wait(), 0, 0)
+    cf.move_and_click(obstacle_3_coords, -1, obstacle_3_wait + extra_wait(), 0, 0)
     if current_laps >= laps_until_pickup:
-        cf.move_and_click(mark_of_grace_coords, -1, mark_of_grace_wait + extra_wait())
+        cf.move_and_click(mark_of_grace_coords, -1, mark_of_grace_wait + extra_wait(), 0, 0)
         current_laps = 0
-    cf.move_and_click(obstacle_4_coords, -1, obstacle_4_wait + extra_wait())
-    cf.move_and_click(obstacle_5_coords, -1, obstacle_5_wait + extra_wait())
-    cf.move_and_click(obstacle_5_midpoint_coords, -1, obstacle_5_midpoint_wait + extra_wait())
-    cf.move_and_click(obstacle_6_coords, -1, obstacle_6_wait + extra_wait())
-    cf.move_and_click(obstacle_7_coords, -1, obstacle_7_wait + extra_wait())
+    cf.move_and_click(obstacle_4_coords, -1, obstacle_4_wait + extra_wait(), 0, 0)
+    cf.move_and_click(obstacle_5_coords, -1, obstacle_5_wait + extra_wait(), 0, 0)
+    cf.move_and_click(obstacle_5_midpoint_coords, -1, obstacle_5_midpoint_wait + extra_wait(), 0, 0)
+    cf.move_and_click(obstacle_6_coords, -1, obstacle_6_wait + extra_wait(), 0, 0)
+    cf.move_and_click(obstacle_7_coords, -1, obstacle_7_wait + extra_wait(), 0, 0)
 
     current_laps += 1
 

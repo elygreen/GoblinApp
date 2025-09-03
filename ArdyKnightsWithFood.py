@@ -75,11 +75,10 @@ def find_colored_hull_center_fast_crop(target_color, tolerance=0, search_area=No
 
 
 def open_coin_pouch():
-    cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
+    cf.move_and_click(coords.inventory_slot[0], -1, -1, precision=-1)
     for k in range(3):
         gui.click()
         time.sleep(random.uniform(.1, .27))
-
 
 
 def color_match(given_color, target_color, tolerance):
@@ -150,7 +149,7 @@ def bank_loop():
         gui.keyUp("shift")
         cf.move_and_click(FOOD_COORD, -1, -1)
         gui.press("esc")
-        cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, -1)
+        cf.move_and_click(coords.inventory_slot[0], -1, -1, precision=-1)
     else:
         print("no bank match")
     find_knight()

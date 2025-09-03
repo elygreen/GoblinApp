@@ -41,47 +41,23 @@ def logout():
         time.sleep(1)
 
 
-def move_and_click(coordinate, sec=1, wait=0):
+def move_and_click(coordinate, sec=1, wait=0, click_type=0, precision=0):
     if sec == -1:
         sec = random.uniform(0.17, .37)
     if wait == -1:
         wait = random.uniform(0.17, .37)
-    gui.moveTo(coordinate[0], coordinate[1], sec)
-    gui.click()
-    time.sleep(wait)
-
-
-def move_and_rightclick(coordinate, sec=1, wait=0):
-    if sec == -1:
-        sec = random.uniform(0.7, 1.1)
-    if wait == -1:
-        wait = random.uniform(0.9, 1.3)
-    gui.moveTo(coordinate[0], coordinate[1], sec)
-    gui.rightClick()
-    time.sleep(wait)
-
-
-def move_and_click_variable_coord(coordinate, sec=1, wait=0):
-    if sec == -1:
-        sec = round(random.uniform(0.63, .77), 2)
-    if wait == -1:
-        wait = round(random.uniform(0.7, 1.0), 2)
-    varied_coordinate_x = coordinate[0] + random.randint(-4, 4)
-    varied_coordinate_y = coordinate[1] + random.randint(-4, 4)
-    gui.moveTo(varied_coordinate_x, varied_coordinate_y, sec)
-    gui.click()
-    time.sleep(wait)
-
-
-def move_and_rightclick_variable_coord(coordinate, sec=1, wait=0):
-    if sec == -1:
-        sec = round(random.uniform(0.7, 1.1), 2)
-    if wait == -1:
-        wait = round(random.uniform(0.9, 1.3), 2)
-    varied_coordinate_x = coordinate[0] + random.randint(-7, 7)
-    varied_coordinate_y = coordinate[1] + random.randint(-7, 7)
-    gui.moveTo(varied_coordinate_x, varied_coordinate_y, sec)
-    gui.rightClick()
+    offset_x = 0
+    offset_y = 0
+    if precision is not 0:
+        if precision == -1:
+            precision = 5
+        offset_x = random.randint(-precision, precision)
+        offset_y = random.randint(-precision, precision)
+    gui.moveTo(coordinate[0]+offset_x, coordinate[1]+offset_y, sec)
+    if click_type == 0:
+        gui.click()
+    else:
+        gui.rightClick()
     time.sleep(wait)
 
 
