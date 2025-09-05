@@ -21,12 +21,9 @@ FULL_SET_UP = False
 
 
 def start():
+    cf.start_script(need_login=False, screen_scroll_value=3, need_click_compass=True, need_angle_up=True)
+
     global fallen_trap_template
-    if FULL_SET_UP:
-        cf.login()
-        cf.screen_scroll(coords.zoom_bar_middle)
-        cf.click_compass()
-        cf.angle_up()
     fallen_trap_template = cf.load_image_template("templates/box_trap.PNG")
     if fallen_trap_template is None:
         print("Error loading fallen trap template")

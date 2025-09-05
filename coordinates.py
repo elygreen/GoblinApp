@@ -29,7 +29,10 @@ zoom_bar_min = (1417, 511)
 zoom_bar_max = (1272, 514)
 zoom_bar_1 = (1270, 511)
 zoom_bar_2 = (1311, 513)
+zoom_bar_3 = zoom_bar_middle
 zoom_bar_4 = (1389, 513)
 zoom_bar_5 = (1422, 511)
+
+MINIMAP_RIGHT_SIDE_COORD = [1418, 153]
 
 ### SCREEN COORDINATES ###

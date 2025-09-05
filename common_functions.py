@@ -126,6 +126,17 @@ def screen_scroll(zoom_bar_coords):
     move_and_click(coords.tab_inventory, -1, -1)
 
 
+def minimap_scroll(scroll_direction = 1):
+    gui.moveTo(coords.MINIMAP_RIGHT_SIDE_COORD)
+    start_time = time.monotonic()
+    while time.monotonic() < start_time + 3:
+        match scroll_direction:
+            case -1:
+                gui.scroll(-300)
+            case _:
+                gui.scroll(300)
+
+
 def compass_scroll_in():
     gui.moveTo(coords.minimap_middle[0], coords.minimap_middle, 1)
     scrollTime = time.monotonic() + 5
@@ -245,3 +256,31 @@ def find_template_on_screen(template, search_area=None, threshold=DEFAULT_IMAGE_
     except Exception as e:
         print(f"Error in template matching: {e}")
         return None
+
+
+def start_script(need_login=False, screen_scroll_value=3, need_click_compass=False, need_angle_up=True, scroll_minimap=0):
+    if need_login:
+        login()
+
+    match screen_scroll_value:
+        case 1:
+            screen_scroll(coords.zoom_bar_1)
+        case 2:
+            screen_scroll(coords.zoom_bar_2)
+        case 3:
+            screen_scroll(coords.zoom_bar_middle)
+        case 4:
+            screen_scroll(coords.zoom_bar_4)
+        case 5:
+            screen_scroll(coords.zoom_bar_5)
+        case _:
+            pass
+
+    if need_click_compass:
+        click_compass()
+
+    if need_angle_up:
+        angle_up()
+
+    if scroll_minimap != 0:
+        minimap_scroll(scroll_minimap)

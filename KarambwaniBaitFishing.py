@@ -20,10 +20,16 @@ first_bank = True
 # left click Varrock teleport to grand exchange
 # fairy ring set to dkp
 
-
 def start():
-    cf.start_script(need_login=False, screen_scroll_value=1, need_click_compass=True, need_angle_up=True,
-                    scroll_minimap=-1)
+    #cf.login()
+    cf.screen_scroll(coords.zoom_bar_1)
+    cf.click_compass()
+    cf.angle_up()
+    # Scroll mininmap up for 4 seconds
+    start_time = time.monotonic()
+    while time.monotonic() < start_time + 3:
+        gui.scroll(-300)
+    print("Start")
 
 
 def fairy_ring_dkp():
