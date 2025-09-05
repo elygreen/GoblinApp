@@ -51,6 +51,7 @@ def ardy_lap():
     global current_laps
     global laps_until_pickup
 
+    # Go through course in obstacle order
     cf.move_and_click(obstacle_1_coords, -1, obstacle_1_wait + extra_wait(), 0, 0)
     cf.move_and_click(obstacle_2_coords, -1, obstacle_2_wait + extra_wait(), 0, 0)
     cf.move_and_click(obstacle_3_coords, -1, obstacle_3_wait + extra_wait(), 0, 0)

@@ -1,10 +1,6 @@
-import sys
 import time
-import threading
 import pyautogui as gui
 import random
-from PIL import Image
-import numpy as np
 
 import common_functions as cf
 import coordinates
@@ -38,13 +34,14 @@ def start():
 
 
 def fairy_ring_dkp():
-    cf.move_and_click_variable_coord(coords.inventory_slot[0], -1, 3)
+    cf.move_and_click(coords.inventory_slot[0], -1, 3, precision=5)
     cf.move_and_click(MINIMAP_RIGHT_SIDE_COORD, -1, 10 + random.uniform(0, 2))
     cf.move_and_click((988, 201), -1, 6)
     fairy_ring_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     if not fairy_ring_location:
         return
     cf.move_and_click(fairy_ring_location, -1, 10)
+
 
 def begin_fishing():
     fishing_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)

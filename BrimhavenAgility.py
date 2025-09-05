@@ -18,6 +18,7 @@ def start():
 
 
 def enter_arena():
+    # Find entrance npc by colored hull tag
     captain_izzy_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     if not captain_izzy_location:
         cf.screen_scroll(coords.zoom_bar_max)
@@ -26,6 +27,7 @@ def enter_arena():
                                                                 DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
             time.sleep(3)
     cf.move_and_click(captain_izzy_location, -1, 3)
+    # 90 second wait period to enter mandated by game
     time.sleep(90)
     ladder_location = cf.find_colored_hull_center(cf.HULL_COLOR_GREEN, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     if not ladder_location:

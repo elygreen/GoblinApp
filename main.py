@@ -5,7 +5,6 @@ import pyautogui as gui
 import random
 
 import ArdyAgilityCourse
-import ArdyKnightsWithFood
 import ArdyKnightsNoFood
 import BrimhavenAgility
 import GrayChins

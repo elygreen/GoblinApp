@@ -74,25 +74,20 @@ def print_mouse():
 
 def print_mouse_tk():
     root = tk.Tk()
-    root.overrideredirect(True)  # Removes title bar/borders
-    root.attributes('-topmost', True)  # Stays on top
-    root.attributes('-alpha', 0.7)  # Semi-transparent
-    root.wm_attributes('-transparentcolor', 'black')  # Make background transparent
+    root.overrideredirect(True)
+    root.attributes('-topmost', True)
+    root.attributes('-alpha', 0.7)
+    root.wm_attributes('-transparentcolor', 'black')
     root.geometry('200x30+100+100')
     label = tk.Label(root, text="Mouse: (0, 0)", fg='white', bg='black', font=('Arial', 12))
     label.pack()
 
     def update_mouse_position():
-        # Get mouse position using pyautogui
         x, y = gui.position()
-        # Update label text
         label.config(text=f"Mouse: ({x}, {y})")
-        # Schedule next update (every 1000ms = 1 second to match your original timing)
         root.after(1000, update_mouse_position)
 
-    # Start updating mouse position
     update_mouse_position()
-
     root.mainloop()
 
 
@@ -162,7 +157,34 @@ def find_colored_hull_center(target_color, tolerance=0, search_area=None):
     # Crop screen then convert to numpy
     if search_area:
         left, top, right, bottom = search_area
-        # Take screenshot of only the search area
+        screenshot = gui.screenshot(region=(left, top, right-left, bottom-top))
+        offset_x, offset_y = left, top
+    else:
+        screenshot = take_screenshot()
+        offset_x, offset_y = 0, 0
+    img_array = np.array(screenshot)
+
+    if tolerance == 0:
+        mask = np.all(img_array == target_color, axis=2)
+    else:
+        diff = np.abs(img_array - target_color)
+        mask = np.all(diff <= tolerance, axis=2)
+
+    # Find matching coordinates
+    matching_coords = np.where(mask)
+
+    if len(matching_coords[0]) == 0:
+        return None
+
+    center_y = int(np.mean(matching_coords[0]).item()) + offset_y
+    center_x = int(np.mean(matching_coords[1]).item()) + offset_x
+
+    return center_x, center_y
+
+
+def find_first_colored_pixel(target_color, tolerance=0, search_area=None):
+    if search_area:
+        left, top, right, bottom = search_area
         screenshot = gui.screenshot(region=(left, top, right-left, bottom-top))
         offset_x, offset_y = left, top
     else:
@@ -174,7 +196,6 @@ def find_colored_hull_center(target_color, tolerance=0, search_area=None):
     if tolerance == 0:
         mask = np.all(img_array == target_color, axis=2)
     else:
-        # Vectorized tolerance check
         diff = np.abs(img_array - target_color)
         mask = np.all(diff <= tolerance, axis=2)
 
@@ -184,53 +205,8 @@ def find_colored_hull_center(target_color, tolerance=0, search_area=None):
     if len(matching_coords[0]) == 0:
         return None
 
-    # Calculate center of matching pixels
-    center_y = int(np.mean(matching_coords[0]).item()) + offset_y
-    center_x = int(np.mean(matching_coords[1]).item()) + offset_x
-
-    return center_x, center_y
-
-
-def find_first_colored_pixel(target_color, tolerance=0, search_area=None):
-    """
-    Find the first pixel that matches the target color (scanning left-to-right, top-to-bottom).
-
-    Args:
-        target_color: RGB tuple of target color
-        tolerance: Color tolerance for matching
-        search_area: Optional (left, top, right, bottom) to search within
-
-    Returns:
-        (x, y) coordinates of first matching pixel, or None if no match found
-    """
-    # Get screenshot and setup offsets
-    if search_area:
-        left, top, right, bottom = search_area
-        screenshot = gui.screenshot(region=(left, top, right - left, bottom - top))
-        offset_x, offset_y = left, top
-    else:
-        screenshot = take_screenshot()
-        offset_x, offset_y = 0, 0
-
-    img_array = np.array(screenshot)
-
-    # Create mask for matching pixels
-    if tolerance == 0:
-        mask = np.all(img_array == target_color, axis=2)
-    else:
-        diff = np.abs(img_array - target_color)
-        mask = np.all(diff <= tolerance, axis=2)
-
-    # Find first matching pixel
-    matching_coords = np.where(mask)
-
-    if len(matching_coords[0]) == 0:
-        return None
-
-    # Get the first match (numpy returns in row-major order, so this is top-left-most)
     first_y = matching_coords[0][0] + offset_y
     first_x = matching_coords[1][0] + offset_x
-
     return first_x, first_y
 
 

@@ -38,10 +38,9 @@ def take_screenshot():
 
 
 def find_colored_hull_center_fast_crop(target_color, tolerance=0, search_area=None):
-    # Crop screen then convert to numpy
+    # Crop screen, convert to numpy
     if search_area:
         left, top, right, bottom = search_area
-        # Take screenshot of only the search area
         screenshot = gui.screenshot(region=(left, top, right-left, bottom-top))
         offset_x, offset_y = left, top
     else:
@@ -49,11 +48,9 @@ def find_colored_hull_center_fast_crop(target_color, tolerance=0, search_area=No
         offset_x, offset_y = 0, 0
 
     img_array = np.array(screenshot)
-    # Boolean mask for matching pixels
     if tolerance == 0:
         mask = np.all(img_array == target_color, axis=2)
     else:
-        # Vectorized tolerance check
         diff = np.abs(img_array - target_color)
         mask = np.all(diff <= tolerance, axis=2)
 
@@ -63,7 +60,7 @@ def find_colored_hull_center_fast_crop(target_color, tolerance=0, search_area=No
     if len(matching_coords[0]) == 0:
         return None
 
-    # Calculate center of matching pixels
+    # Center of matching pixels
     center_y = int(np.mean(matching_coords[0]).item()) + offset_y
     center_x = int(np.mean(matching_coords[1]).item()) + offset_x
 
@@ -77,8 +74,6 @@ def open_coin_pouch():
         time.sleep(random.uniform(.1, .27))
 
 
-# Match two given colors based on the difference between their RGB values
-# with a given level of tolerance
 def color_match(given_color, target_color, tolerance):
     if tolerance == 0:
         return given_color == target_color
@@ -126,7 +121,6 @@ def pickpocket_loop():
             gui.click()
         else:
             find_knight()
-    # Open coin pouch
     open_coin_pouch()
 
 
