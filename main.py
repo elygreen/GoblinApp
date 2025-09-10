@@ -18,13 +18,11 @@ NEEDS_LOGIN = False
 
 if __name__ == '__main__':
     time.sleep(2)
-    if NEEDS_LOGIN:
-        cf.login()
     #cf.print_mouse_tk()
     #HosidiousCooking.run()
-    GrayChins.run()
+    #GrayChins.run()
     #KarambwanFishing.run()
-    #ArdyAgilityCourse.run()
+    ArdyAgilityCourse.run()
     #BrimhavenAgility.run()
     #NMZ.run()
     #SandCrabCave.Run()

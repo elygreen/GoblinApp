@@ -10,10 +10,7 @@ RUN_TIME = 5.4
 
 
 def start():
-    cf.login()
-    cf.screen_scroll(coords.zoom_bar_middle)
-    cf.click_compass()
-    cf.angle_up()
+    cf.start_script(need_login=True, screen_scroll_value=3, need_click_compass=True, need_angle_up=True)
     time.sleep(3)
 
 

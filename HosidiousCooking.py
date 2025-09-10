@@ -23,10 +23,7 @@ first_bank = True
 
 
 def start():
-    cf.login()
-    cf.screen_scroll(coords.zoom_bar_2)
-    cf.click_compass()
-    cf.angle_up()
+    cf.start_script(need_login=False, screen_scroll_value=2, need_click_compass=True, need_angle_up=True)
 
 
 def first_time_banking():

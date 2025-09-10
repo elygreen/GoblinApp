@@ -21,14 +21,7 @@ first_bank = True
 # fairy ring set to dkp
 
 def start():
-    #cf.login()
-    cf.screen_scroll(coords.zoom_bar_1)
-    cf.click_compass()
-    cf.angle_up()
-    # Scroll mininmap up for 4 seconds
-    start_time = time.monotonic()
-    while time.monotonic() < start_time + 3:
-        gui.scroll(-300)
+    cf.start_script(need_login=False, screen_scroll_value=3, need_click_compass=True, need_angle_up=True)
     print("Start")
 
 

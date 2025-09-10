@@ -13,7 +13,7 @@ import coordinates as coords
 # Set up box traps
 
 DEFAULT_TOLERANCE = 5
-RUN_TIME = 5.7
+RUN_TIME = 5.78
 TEMPLATE_THRESHOLD = 0.5
 OVERCORRECT_PIXELS = 3
 BOX_SET_UP_WAIT = 8.4
@@ -21,7 +21,7 @@ FULL_SET_UP = False
 
 
 def start():
-    cf.start_script(need_login=False, screen_scroll_value=3, need_click_compass=True, need_angle_up=True)
+    #cf.start_script(need_login=False, screen_scroll_value=3, need_click_compass=True, need_angle_up=True)
 
     global fallen_trap_template
     fallen_trap_template = cf.load_image_template("templates/box_trap.PNG")
@@ -70,3 +70,4 @@ def run():
     start_time = time.monotonic()
     while time.monotonic() < start_time + RUN_TIME * 60 * 60:
         chin_hunting_loop()
+    cf.logout()

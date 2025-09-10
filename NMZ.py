@@ -170,11 +170,8 @@ def Inside_NMZ():
 def run():
     for i in range(3):
         time.sleep(3)
-        cf.login()
-        cf.screen_scroll(coords.zoom_bar_middle)
         cf.compass_scroll_out()
-        cf.click_compass()
-        cf.angle_up()
+        cf.start_script(need_login=True, screen_scroll_value=3, need_click_compass=True, need_angle_up=True)
         Buy_Absorptions()
         Dom()
         deposit_potions()

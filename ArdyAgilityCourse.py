@@ -10,7 +10,7 @@ import coordinates as coords
 # Start on tile "ardy course start" (tile ardy course ends on)
 
 DEFAULT_TOLERANCE = 5
-RUN_TIME = 5.4
+RUN_TIME = 2.1
 
 laps_until_pickup = 20
 current_laps = 0
@@ -40,11 +40,7 @@ def extra_wait():
 
 
 def start():
-    cf.login()
-    cf.screen_scroll(coords.zoom_bar_2)
-    cf.click_compass()
-    cf.angle_up()
-    time.sleep(3)
+    cf.start_script(need_login=True, screen_scroll_value=2, need_click_compass=True, need_angle_up=True)
 
 
 def ardy_lap():
