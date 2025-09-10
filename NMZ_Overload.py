@@ -145,7 +145,7 @@ def Inside_NMZ():
     
 
 
-def run():
+def run(needs_login, script_run_time):
     time.sleep(3)
     cf.login()
     cf.screen_scroll(coords.zoom_bar_middle)

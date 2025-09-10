@@ -14,18 +14,20 @@ import NMZ
 import SandCrabCave
 import common_functions as cf
 
-NEEDS_LOGIN = False
+#TODO: Update NMZ, NMZ.py, SandCrabCave.py
+
+needs_login = False
+script_run_time = 5.1
 
 if __name__ == '__main__':
     time.sleep(2)
-    #cf.print_mouse_tk()
-    #HosidiousCooking.run()
-    #GrayChins.run()
-    #KarambwanFishing.run()
-    ArdyAgilityCourse.run()
-    #BrimhavenAgility.run()
-    #NMZ.run()
-    #SandCrabCave.Run()
-    #ArdyKnights3.run()
-    #ArdyKnightsNoFood.run()
-    #FishStall.Run()
+    script_total_run_time = script_run_time * 60 * 60
+    #cf.print_mouse_tk(needs_login, script_run_time)
+    #HosidiousCooking.run(needs_login, script_run_time)
+    #GrayChins.run(needs_login, script_run_time)
+    #KarambwanFishing.run(needs_login, script_run_time)
+    ArdyAgilityCourse.run(needs_login, script_run_time)
+    #BrimhavenAgility.run(needs_login, script_run_time)
+    #NMZ.run(needs_login, script_run_time)
+    #SandCrabCave.Run(needs_login, script_run_time)
+    #ArdyKnightsNoFood.run(needs_login, script_run_time)

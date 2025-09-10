@@ -167,7 +167,7 @@ def Inside_NMZ():
     
 
 
-def run():
+def run(needs_login, script_run_time):
     for i in range(3):
         time.sleep(3)
         cf.compass_scroll_out()

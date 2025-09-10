@@ -21,8 +21,8 @@ first_bank = True
 # fairy ring set to dkp
 
 
-def start():
-    cf.start_script(need_login=False, screen_scroll_value=1, need_click_compass=True, need_angle_up=True,
+def start(needs_login):
+    cf.start_script(need_login=needs_login, screen_scroll_value=1, need_click_compass=True, need_angle_up=True,
                     scroll_minimap=-1)
 
 
@@ -66,10 +66,10 @@ def finish():
     cf.logout()
 
 
-def run():
-    start()
+def run(needs_login, script_run_time):
+    start(needs_login)
     start_time = time.monotonic()
-    while time.monotonic() < start_time + RUN_TIME * 60 * 60:
+    while time.monotonic() < start_time + script_run_time:
         fairy_ring_dkp()
         begin_fishing()
         bank_inventory()

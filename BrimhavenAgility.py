@@ -9,8 +9,8 @@ DEFAULT_TOLERANCE = 5
 RUN_TIME = 5.4
 
 
-def start():
-    cf.start_script(need_login=True, screen_scroll_value=3, need_click_compass=True, need_angle_up=True)
+def start(needs_login):
+    cf.start_script(need_login=needs_login, screen_scroll_value=3, need_click_compass=True, need_angle_up=True)
     time.sleep(3)
 
 
@@ -47,11 +47,11 @@ def get_to_obstacle():
     gui.press("/")
 
 
-def auto_click():
+def auto_click(script_run_time):
     time.sleep(1.5)
     cf.move_and_click((989, 360), -1, -1)
     time_start = time.monotonic()
-    while time.monotonic() < time_start + RUN_TIME * 60 * 60:
+    while time.monotonic() < time_start + script_run_time:
         time.sleep(random.uniform(0.27, 0.47))
         gui.click()
 
@@ -61,9 +61,9 @@ def finish():
     cf.logout()
 
 
-def run():
-    start()
+def run(needs_login, script_run_time):
+    start(needs_login)
     enter_arena()
     get_to_obstacle()
-    auto_click()
+    auto_click(script_run_time)
     finish()
