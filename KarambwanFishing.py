@@ -27,8 +27,8 @@ def start(needs_login):
 
 
 def fairy_ring_dkp():
-    cf.move_and_click(coords.inventory_slot[0], -1, 3, precision=5)
-    cf.move_and_click(MINIMAP_RIGHT_SIDE_COORD, -1, 10 + random.uniform(0, 2))
+    cf.move_and_click(coords.inventory_slot[0], -1, 3.5, precision=5)
+    cf.move_and_click(MINIMAP_RIGHT_SIDE_COORD, -1, 10.3 + random.uniform(0, 2))
     cf.move_and_click((988, 201), -1, 6)
     fairy_ring_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     if not fairy_ring_location:

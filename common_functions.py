@@ -43,6 +43,8 @@ def move_and_click(coordinate, sec=1, wait=0, click_type=0, precision=0):
         sec = random.uniform(0.17, .37)
     if wait == -1:
         wait = random.uniform(0.17, .37)
+    if wait == -2:
+        wait = random.uniform(0.37, .57)
     offset_x = 0
     offset_y = 0
     if precision != 0:

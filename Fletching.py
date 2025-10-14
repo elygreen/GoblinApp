@@ -13,11 +13,12 @@ import coordinates as coords
 # Logs in bottom right of bank
 
 DEFAULT_TOLERANCE = 5
-FLETCHING_UI_SLOT = 2
+FLETCHING_UI_SLOT = 3
 log_slot = (996, 452)
 
 def start(needs_login):
-    cf.start_script(need_login=needs_login, screen_scroll_value=5, need_click_compass=True, need_angle_up=True)
+    pass
+    #cf.start_script(need_login=needs_login, screen_scroll_value=5, need_click_compass=True, need_angle_up=True)
 
 
 def bank():
@@ -35,9 +36,10 @@ def bank():
 def fletching_loop():
     knife_slot = coords.inventory_slot[0]
     log_to_fletch_slot = coords.inventory_slot[random.randint(2, 23)]
-    cf.move_and_click(knife_slot, -1, -1, precision=2)
-    cf.move_and_click(log_to_fletch_slot, -1, -1, precision=2)
-    gui.press(FLETCHING_UI_SLOT)
+    cf.move_and_click(knife_slot, -1, -2, precision=2)
+    cf.move_and_click(log_to_fletch_slot, -1, -2, precision=2)
+    time.sleep(.9)
+    gui.press(str(FLETCHING_UI_SLOT))
     time.sleep(random.uniform(50, 53))
 
 def finish():
