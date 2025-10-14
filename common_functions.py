@@ -9,6 +9,10 @@ import coordinates as coords
 
 HULL_COLOR_PINK = (255, 9, 154)
 HULL_COLOR_GREEN = (0, 255, 29)
+HULL_COLOR_BLUE = (19, 9, 255)
+HULL_COLOR_TEAL = (9, 255, 194)
+HULL_COLOR_ORANGE = (255, 130, 9)
+
 # Coordinates of game screen on full screen Runelite application for my specific laptop,
 # your coordinates will vary!
 DEFAULT_GAME_SCREEN = (368, 30, 1136, 540)
