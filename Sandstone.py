@@ -14,7 +14,7 @@ first_bank = True
 
 ####################
 ###    SET UP    ###
-###################
+####################
 # Start at sandstone mine
 # Have empty inventory
 
