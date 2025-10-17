@@ -33,12 +33,7 @@ def mining_loop():
     for i in range (6):
         rock_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
         cf.move_and_click(rock_location, -1, mining_wait_time())
-        rock_location = cf.find_colored_hull_center(cf.HULL_COLOR_BLUE, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-        cf.move_and_click(rock_location, -1, mining_wait_time())
-        rock_location = cf.find_colored_hull_center(cf.HULL_COLOR_ORANGE, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-        cf.move_and_click(rock_location, -1, mining_wait_time())
-        rock_location = cf.find_colored_hull_center(cf.HULL_COLOR_TEAL, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-        cf.move_and_click(rock_location, -1, mining_wait_time())
+        
 
 
 def grinder():
