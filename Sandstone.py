@@ -27,23 +27,27 @@ def start(needs_login):
 def mining_wait_time():
     return random.uniform(2.3, 3.0)
 
+
 def mining_loop():
     rock_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
     while rock_location is None:
         rock_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
         time.sleep(2)
     cf.move_and_click(rock_location, -1, grinder_to_rock_wait_time)
-    for i in range (6):
+
+    for i in range(6):
         rock_location = cf.find_colored_hull_center(cf.HULL_COLOR_PINK, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
-        cf.move_and_click(rock_location, -1, mining_wait_time())
         if rock_location:
             cf.move_and_click(rock_location, -1, mining_wait_time(), precision=2)
+
         rock_location = cf.find_colored_hull_center(cf.HULL_COLOR_BLUE, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
         if rock_location:
             cf.move_and_click(rock_location, -1, mining_wait_time(), precision=2)
+
         rock_location = cf.find_colored_hull_center(cf.HULL_COLOR_ORANGE, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
         if rock_location:
             cf.move_and_click(rock_location, -1, mining_wait_time(), precision=2)
+
         rock_location = cf.find_colored_hull_center(cf.HULL_COLOR_TEAL, DEFAULT_TOLERANCE, cf.DEFAULT_GAME_SCREEN)
         if rock_location:
             cf.move_and_click(rock_location, -1, mining_wait_time(), precision=2)
@@ -67,3 +71,4 @@ def run(needs_login, script_run_time):
     while time.monotonic() < start_time + script_run_time:
         mining_loop()
         grinder()
+    finish()

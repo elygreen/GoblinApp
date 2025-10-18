@@ -32,8 +32,8 @@ def auto_alch():
 if __name__ == '__main__':
     time.sleep(2)
     script_total_run_time = script_run_time * 60 * 60
-    Sandstone.run(needs_login, script_total_run_time)
-    #cf.print_mouse_tk(needs_login, script_total_run_time)
+    #Sandstone.run(needs_login, script_total_run_time)
+    cf.print_mouse_tk()
     #HosidiousCooking.run(needs_login, script_total_run_time)
     #GrayChins.run(needs_login, script_total_run_time)
     #KarambwanFishing.run(needs_login, script_total_run_time)
