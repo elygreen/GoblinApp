@@ -21,6 +21,7 @@ tab_settings = (1371, 758)
 tab_settings_zoom = (1414, 361)
 
 bank_withdraw_quantity_all = (861, 517)
+bank_withdraw_x = (829, 519)
 
 bank_deposit_all = (1031, 503)
 
